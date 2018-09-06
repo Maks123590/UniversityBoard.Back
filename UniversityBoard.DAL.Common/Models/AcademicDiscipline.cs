@@ -1,4 +1,4 @@
-﻿namespace UniversityBoard.DAL.Models
+﻿namespace UniversityBoard.DAL.Common.Models
 {
     public class AcademicDiscipline
     {

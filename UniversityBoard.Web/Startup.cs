@@ -13,6 +13,17 @@ using Microsoft.Extensions.Options;
 
 namespace UniversityBoard.Back
 {
+    using System.Data;
+    using System.Data.Common;
+    using System.Data.SqlClient;
+
+    using MySql.Data.MySqlClient;
+
+    using UniversityBoard.BLL.Interfaces;
+    using UniversityBoard.BLL.Services;
+    using UniversityBoard.DAL.Common.Interfaces;
+    using UniversityBoard.DAL.SQL.Repositories;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -26,6 +37,13 @@ namespace UniversityBoard.Back
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            var connectionString = @"server=localhost;user=root;database=batunin_402_user;SslMode=none";
+
+            services.AddSingleton<IDbConnection, DbConnection>(provider => new MySqlConnection(connectionString));
+
+            services.AddTransient<IStudentRepository, StudentsRepository>();
+            services.AddTransient<IStudentServices, StudentServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

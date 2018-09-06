@@ -5,12 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Mapster" Version="3.1.8" />
+    <PackageReference Include="Dapper" Version="1.50.5" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\UniversityBoard.DAL.Common\UniversityBoard.DAL.Common.csproj" />
-    <ProjectReference Include="..\UniversityBoard.DAL.SQL\UniversityBoard.DAL.SQL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Helpers\" />
   </ItemGroup>
 
 </Project>

@@ -1,8 +1,10 @@
-﻿namespace UniversityBoard.DAL.Models
+﻿namespace UniversityBoard.BLL.Dtos
 {
     using System;
 
-    public class Student
+    using UniversityBoard.DAL.Common.Enums;
+
+    public class StudentDto
     {
         public int Id { get; set; }
 
@@ -11,6 +13,8 @@
         public string LustName { get; set; }
 
         public string MiddleName { get; set; }
+
+        public Gender Gender { get; set; }
 
         public DateTime BirthDay { get; set; }
 
