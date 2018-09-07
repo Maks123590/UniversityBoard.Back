@@ -1,23 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-
-namespace UniversityBoard.Back
+﻿namespace UniversityBoard.Web
 {
     using System.Data;
     using System.Data.Common;
-    using System.Data.SqlClient;
+    using System.IO;
+
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
 
     using MySql.Data.MySqlClient;
+
+    using Swashbuckle.AspNetCore.Swagger;
 
     using UniversityBoard.BLL.Interfaces;
     using UniversityBoard.BLL.Services;
@@ -28,7 +23,7 @@ namespace UniversityBoard.Back
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            this.Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -44,6 +39,14 @@ namespace UniversityBoard.Back
 
             services.AddTransient<IStudentRepository, StudentsRepository>();
             services.AddTransient<IStudentServices, StudentServices>();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "UniversityBoard API", Version = "v1" });
+
+                var filePath = Path.Combine(System.AppContext.BaseDirectory, "UniversityBoard.Web.xml");
+                c.IncludeXmlComments(filePath);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,6 +63,14 @@ namespace UniversityBoard.Back
 
             app.UseHttpsRedirection();
             app.UseMvc();
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.RoutePrefix = "api/swagger";
+            });
         }
     }
 }

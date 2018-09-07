@@ -7,19 +7,21 @@
 
     using UniversityBoard.BLL.Dtos;
     using UniversityBoard.BLL.Interfaces;
-    using UniversityBoard.DAL.Common.Interfaces;
-
+    
     [Route("api/[controller]")]
     public class StudentsController : Controller
     {
-        private IStudentServices studentServices;
-
+        private readonly IStudentServices studentServices;
+        
         public StudentsController(IStudentServices studentServices)
         {
             this.studentServices = studentServices;
         }
-
-        // GET: api/<controller>
+        
+        /// <summary>
+        /// Возвращает полный список студентов
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IEnumerable<StudentDto>> Get()
         {

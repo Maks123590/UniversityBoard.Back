@@ -3,8 +3,6 @@
     using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Hosting;
 
-    using UniversityBoard.Back;
-
     public class Program
     {
         public static void Main(string[] args)
