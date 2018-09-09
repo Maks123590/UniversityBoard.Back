@@ -16,6 +16,6 @@
     {
         Task<TEntity> Get(TKey id);
 
-        Task<TEntity> Delete(TKey id);
+        Task Delete(TKey id);
     }
 }

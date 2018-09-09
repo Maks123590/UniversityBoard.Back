@@ -1,16 +1,14 @@
-﻿namespace UniversityBoard.BLL.Dtos
+﻿namespace UniversityBoard.BLL.Dtos.Student
 {
     using System;
 
     using UniversityBoard.DAL.Common.Enums;
 
-    public class StudentDto
+    public class StudentCreateDto
     {
-        public int Id { get; set; }
-
         public string FirstName { get; set; }
 
-        public string LustName { get; set; }
+        public string LastName { get; set; }
 
         public string MiddleName { get; set; }
 

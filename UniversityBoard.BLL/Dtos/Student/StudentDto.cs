@@ -1,10 +1,10 @@
-﻿namespace UniversityBoard.DAL.Common.Models
+﻿namespace UniversityBoard.BLL.Dtos
 {
     using System;
 
     using UniversityBoard.DAL.Common.Enums;
 
-    public class Student
+    public class StudentDto
     {
         public int Id { get; set; }
 

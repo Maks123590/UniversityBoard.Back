@@ -38,7 +38,7 @@
             throw new System.NotImplementedException();
         }
 
-        public Task<Student> Delete(int id)
+        public Task Delete(int id)
         {
             throw new System.NotImplementedException();
         }
