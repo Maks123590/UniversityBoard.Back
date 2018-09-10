@@ -23,24 +23,40 @@
             return await this.connection.QueryAsync<Student>(@"SELECT * FROM Students;");
         }
 
-        public Task<Student> Create(Student entity)
+        public async Task<Student> Create(Student entity)
         {
-            throw new System.NotImplementedException();
+            return await this.connection.QueryFirstAsync<Student>(
+                       @" INSERT INTO Students (FirstName, LastName, MiddleName, Gender, BirthDay, StudentCardNumber, GroupId) 
+                            VALUES(@FirstName, @LastName, @MiddleName, @Gender, @BirthDay, @StudentCardNumber, @GroupId);
+                          SELECT * FROM Students where id = LAST_INSERT_ID();",
+                       entity);
         }
 
-        public Task<Student> Update(Student entity)
+        public async Task<Student> Update(Student entity)
         {
-            throw new System.NotImplementedException();
+            return await this.connection.QueryFirstAsync<Student>(
+                @"UPDATE Students
+                    SET FirstName = @FirstName,
+	                     LastName = @LastName,
+	                     MiddleName = @MiddleName,
+	                     Gender = @Gender,
+	                     BirthDay = @BirthDay,
+	                     StudentCardNumber = @StudentCardNumber,
+	                     GroupId = @GroupId
+                    WHERE id = @id;
+
+                 SELECT * FROM Students where id = @id",
+                entity);
         }
 
-        public Task<Student> Get(int id)
+        public async Task<Student> Get(int id)
         {
-            throw new System.NotImplementedException();
+            return await this.connection.QueryFirstOrDefaultAsync<Student>(@"SELECT * FROM Students where id = @id", new { id });
         }
 
-        public Task Delete(int id)
+        public async Task Delete(int id)
         {
-            throw new System.NotImplementedException();
+            await this.connection.ExecuteAsync(@"DELETE FROM Students WHERE id = @id", new { id });
         }
     }
 }
