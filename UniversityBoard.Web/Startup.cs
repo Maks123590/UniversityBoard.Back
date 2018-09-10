@@ -33,7 +33,7 @@
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            var connectionString = @"server=localhost;user=root;database=batunin_402_user;SslMode=none";
+            var connectionString = this.Configuration.GetConnectionString("DefaultSqlConnectionString");
 
             services.AddSingleton<IDbConnection, DbConnection>(provider => new MySqlConnection(connectionString));
 
