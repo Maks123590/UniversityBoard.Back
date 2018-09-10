@@ -12,8 +12,4 @@
     <ProjectReference Include="..\UniversityBoard.DAL.Common\UniversityBoard.DAL.Common.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Helpers\" />
-  </ItemGroup>
-
 </Project>

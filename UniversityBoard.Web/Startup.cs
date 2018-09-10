@@ -38,7 +38,10 @@
             services.AddSingleton<IDbConnection, DbConnection>(provider => new MySqlConnection(connectionString));
 
             services.AddTransient<IStudentRepository, StudentsRepository>();
+            services.AddTransient<IGroupRepository, GroupRepository>();
+
             services.AddTransient<IStudentServices, StudentServices>();
+            services.AddTransient<IGroupServices, GroupServices>();
 
             services.AddSwaggerGen(c =>
             {
