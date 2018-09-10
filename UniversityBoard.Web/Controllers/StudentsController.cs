@@ -7,16 +7,19 @@
 
     using UniversityBoard.BLL.Dtos;
     using UniversityBoard.BLL.Dtos.Student;
+    using UniversityBoard.BLL.Dtos.StudentCard;
     using UniversityBoard.BLL.Interfaces;
     
     [Route("api/[controller]")]
     public class StudentsController : Controller
     {
         private readonly IStudentServices studentServices;
-        
-        public StudentsController(IStudentServices studentServices)
+        private readonly IStudentCardServices studentCardServices;
+
+        public StudentsController(IStudentServices studentServices, IStudentCardServices studentCardServices)
         {
             this.studentServices = studentServices;
+            this.studentCardServices = studentCardServices;
         }
         
         /// <summary>
@@ -72,5 +75,31 @@
         {
             await this.studentServices.Delete(id);
         }
+
+        #region StudentCard
+
+        /// <summary>
+        /// Получает студенческий билет по его номеру
+        /// </summary>
+        /// <param name="number">Номер студенческого билета</param>
+        /// <returns></returns>
+        [HttpGet("studentCard/{id:int}")]
+        public async Task<StudentCardDto> GetByNumber(int number)
+        {
+            return await this.studentCardServices.GetStudentCard(number);
+        }
+
+        /// <summary>
+        /// Удаляет студенческий билет
+        /// </summary>
+        /// <param name="number">Номер студенческого билета</param>
+        /// <returns></returns>
+        [HttpDelete("studentCard/{id:int}")]
+        public async Task DeleteStudentCard(int number)
+        {
+            await this.studentCardServices.DeleteCard(number);
+        }
+
+        #endregion
     }
 }

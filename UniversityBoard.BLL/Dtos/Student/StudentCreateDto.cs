@@ -18,6 +18,8 @@
 
         public int StudentCardNumber { get; set; }
 
+        public DateTime StudentCardIssueDate { get; set; }
+
         public int GroupId { get; set; }
     }
 }
