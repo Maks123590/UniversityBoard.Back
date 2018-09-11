@@ -1,11 +1,11 @@
 ﻿namespace UniversityBoard.BLL.Dtos.Group
 {
-    public class GroupDto
+    using System.Collections.Generic;
+
+    using UniversityBoard.BLL.Dtos.Student;
+
+    public class GroupDto : GroupBaseDto
     {
-        public int Id { get; set; }
-
-        public string Number { get; set; }
-
-        public int HeadId { get; set; }
+        public IEnumerable<StudentBaseDto> Students { get; set; }
     }
 }

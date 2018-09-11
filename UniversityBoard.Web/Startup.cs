@@ -39,9 +39,11 @@
 
             services.AddTransient<IStudentRepository, StudentsRepository>();
             services.AddTransient<IGroupRepository, GroupRepository>();
+            services.AddTransient<IStudentCardRepository, StudentCardsRepository>();
 
             services.AddTransient<IStudentServices, StudentServices>();
             services.AddTransient<IGroupServices, GroupServices>();
+            services.AddTransient<IStudentCardServices, StudentCardServices>();
 
             services.AddSwaggerGen(c =>
             {

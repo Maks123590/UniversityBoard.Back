@@ -30,6 +30,16 @@
                        studentCard);
         }
 
+        public async Task<StudentCard> Upsert(StudentCard studentCard)
+        {
+            return await this.connection.QueryFirstAsync<StudentCard>(
+                       @"INSERT INTO StudentCards (Number,IssueDate) 
+                            VALUES (@Number, @IssueDate) 
+                         ON DUPLICATE KEY UPDATE Number=@Number, IssueDate=@IssueDate;
+                         SELECT * FROM StudentCards where Number = @Number;",
+                       studentCard);
+        }
+
         public async Task Delete(int id)
         {
             await this.connection.ExecuteAsync(@"DELETE FROM StudentCards WHERE Number = @Number", new { Number = id });

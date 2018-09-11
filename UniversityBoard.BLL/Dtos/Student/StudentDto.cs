@@ -1,25 +1,12 @@
-﻿namespace UniversityBoard.BLL.Dtos
+﻿namespace UniversityBoard.BLL.Dtos.Student
 {
-    using System;
+    using UniversityBoard.BLL.Dtos.Group;
+    using UniversityBoard.BLL.Dtos.StudentCard;
 
-    using UniversityBoard.DAL.Common.Enums;
-
-    public class StudentDto
+    public class StudentDto : StudentBaseDto
     {
-        public int Id { get; set; }
+        public GroupBaseDto Group { get; set; }
 
-        public string FirstName { get; set; }
-
-        public string LastName { get; set; }
-
-        public string MiddleName { get; set; }
-
-        public Gender Gender { get; set; }
-
-        public DateTime BirthDay { get; set; }
-
-        public int StudentCardNumber { get; set; }
-
-        public int GroupId { get; set; }
+        public StudentCardBaseDto StudentCard { get; set; }
     }
 }

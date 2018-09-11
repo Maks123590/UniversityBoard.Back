@@ -7,5 +7,7 @@
     public interface IStudentCardRepository : IRepository<int, StudentCard>
     {
         Task<StudentCard> Create(StudentCard studentCard);
+
+        Task<StudentCard> Upsert(StudentCard studentCard);
     }
 }

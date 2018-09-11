@@ -58,5 +58,12 @@
         {
             await this.connection.ExecuteAsync(@"DELETE FROM Students WHERE id = @id", new { id });
         }
+
+        public async Task<IEnumerable<Student>> GetByGroupId(int groupId)
+        {
+            return await this.connection.QueryAsync<Student>(
+                @"SELECT * FROM Students WHERE GroupId = @groupId;",
+                new { groupId });
+        }
     }
 }
