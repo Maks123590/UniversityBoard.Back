@@ -31,8 +31,10 @@
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddCors();
 
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            
             var connectionString = this.Configuration.GetConnectionString("DefaultSqlConnectionString");
 
             services.AddSingleton<IDbConnection, DbConnection>(provider => new MySqlConnection(connectionString));
@@ -65,6 +67,14 @@
             {
                 app.UseHsts();
             }
+
+
+            app.UseCors(
+                options => options.AllowAnyOrigin()
+                                  .AllowAnyHeader()
+                                  .AllowAnyMethod()
+                                  .AllowCredentials()
+            );
 
             app.UseHttpsRedirection();
             app.UseMvc();
