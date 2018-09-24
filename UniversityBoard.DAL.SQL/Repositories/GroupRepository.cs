@@ -26,9 +26,9 @@
         public async Task<Group> Create(Group entity)
         {
             return await this.connection.QueryFirstAsync<Group>(
-                       @" INSERT INTO Groups (Number, HeadId) VALUES(@Number, @HeadId);
+                       @" INSERT INTO Groups (Number, HeadId, FormationDate) VALUES(@Number, @HeadId, @FormationDate);
                           SELECT * FROM Groups where id = LAST_INSERT_ID();",
-                       entity);
+                      entity);
         }
 
         public async Task<Group> Update(Group entity)
@@ -36,7 +36,8 @@
             return await this.connection.QueryFirstAsync<Group>(
                        @"UPDATE Groups
                             SET Number = @Number,
-	                        HeadId = @HeadId
+	                        HeadId = @HeadId,
+                            FormationDate = @FormationDate
                          WHERE id = @id;
 
                          SELECT * FROM Groups where id = @id",

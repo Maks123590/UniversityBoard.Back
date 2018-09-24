@@ -7,5 +7,9 @@
     public class GroupDto : GroupBaseDto
     {
         public IEnumerable<StudentBaseDto> Students { get; set; }
+
+        public StudentDto Head { get; set; }
+
+        public int StudentsCount { get; set; }
     }
 }

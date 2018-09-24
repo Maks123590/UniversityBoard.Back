@@ -1,4 +1,7 @@
-﻿namespace UniversityBoard.BLL.Services
+﻿using System;
+using System.Linq;
+
+namespace UniversityBoard.BLL.Services
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;
@@ -25,6 +28,11 @@
         {
             var groups = await this.groupRepository.GetAll();
 
+            foreach (var group in groups)
+            {
+                await AddRelatedEntities(group, false);
+            }
+
             return groups.Adapt<IEnumerable<GroupDto>>();
         }
 
@@ -40,6 +48,8 @@
         public async Task<GroupDto> Create(GroupCreateDto group)
         {
             var groupModel = group.Adapt<Group>();
+
+            groupModel.FormationDate = DateTime.Now;
 
             var newGroup = await this.groupRepository.Create(groupModel);
 
@@ -64,9 +74,18 @@
             await this.groupRepository.Delete(id);
         }
 
-        public async Task AddRelatedEntities(Group group)
+        private async Task AddRelatedEntities(Group group, bool addAllStudents = true)
         {
-            group.Students = await this.studentRepository.GetByGroupId(group.Id);
+            group.Head = await this.studentRepository.Get(group.HeadId);
+
+            var students = (await this.studentRepository.GetByGroupId(group.Id)).ToList();
+
+            group.StudentsCount = students.Count;
+
+            if (addAllStudents)
+            {
+                group.Students = students;
+            }
         }
     }
 }
