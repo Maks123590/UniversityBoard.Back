@@ -11,5 +11,7 @@
         public int HeadId { get; set; }
 
         public DateTime FormationDate { get; set; }
+
+        public string EducationalDirectionCode { get; set; }
     }
 }

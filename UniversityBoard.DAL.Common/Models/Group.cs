@@ -18,5 +18,9 @@
         public IEnumerable<Student> Students { get; set; }
 
         public int StudentsCount { get; set; }
+
+        public string EducationalDirectionCode { get; set; }
+
+        public EducationalDirection EducationalDirection { get; set; }
     }
 }

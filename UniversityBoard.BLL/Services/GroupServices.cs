@@ -17,11 +17,13 @@ namespace UniversityBoard.BLL.Services
     {
         private readonly IGroupRepository groupRepository;
         private readonly IStudentRepository studentRepository;
+        private readonly IEducationalDirectionRepository educationalDirectionRepository;
 
-        public GroupServices(IGroupRepository groupRepository, IStudentRepository studentRepository)
+        public GroupServices(IGroupRepository groupRepository, IStudentRepository studentRepository, IEducationalDirectionRepository educationalDirectionRepository)
         {
             this.groupRepository = groupRepository;
             this.studentRepository = studentRepository;
+            this.educationalDirectionRepository = educationalDirectionRepository;
         }
 
         public async Task<IEnumerable<GroupDto>> GetAllGroups()
@@ -81,6 +83,8 @@ namespace UniversityBoard.BLL.Services
             var students = (await this.studentRepository.GetByGroupId(group.Id)).ToList();
 
             group.StudentsCount = students.Count;
+
+            group.EducationalDirection = await educationalDirectionRepository.Get(group.EducationalDirectionCode);
 
             if (addAllStudents)
             {

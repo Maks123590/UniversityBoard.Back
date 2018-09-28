@@ -2,7 +2,7 @@
 {
     using UniversityBoard.DAL.Common.Models;
 
-    public interface IEducationalDirectionRepository : IRepository<EducationalDirection>, IRepository<int, EducationalDirection>
+    public interface IEducationalDirectionRepository : IRepository<EducationalDirection>, IRepository<string, EducationalDirection>
     {
     }
 }

@@ -42,6 +42,7 @@
             services.AddTransient<IStudentRepository, StudentsRepository>();
             services.AddTransient<IGroupRepository, GroupRepository>();
             services.AddTransient<IStudentCardRepository, StudentCardsRepository>();
+            services.AddTransient<IEducationalDirectionRepository, EducationalDirectionRepository>();
 
             services.AddTransient<IStudentServices, StudentServices>();
             services.AddTransient<IGroupServices, GroupServices>();

@@ -43,14 +43,14 @@
                        entity);
         }
 
-        public async Task<EducationalDirection> Get(int id)
+        public async Task<EducationalDirection> Get(string id)
         {
             return await this.connection.QueryFirstOrDefaultAsync<EducationalDirection>(@"SELECT * FROM EducationalDirections where Code = @Code", new { Code = id });
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(string id)
         {
-            await this.connection.ExecuteAsync(@"DELETE FROM StudentCards WHERE Code = @Code", new { Number = id });
+            await this.connection.ExecuteAsync(@"DELETE FROM StudentCards WHERE Code = @Code", new { Code = id });
         }
     }
 }
