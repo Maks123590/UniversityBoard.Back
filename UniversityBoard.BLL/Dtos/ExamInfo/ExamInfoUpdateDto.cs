@@ -1,11 +1,9 @@
-﻿namespace UniversityBoard.DAL.Common.Models
+﻿using System;
+
+namespace UniversityBoard.BLL.Dtos.ExamInfo
 {
-    using System;
-
-    public class ExamInfo
+    public class ExamInfoUpdateDto
     {
-        public int Id { get; set; }
-
         public DateTime Date { get; set; }
 
         public string AcademicDisciplineCode { get; set; }

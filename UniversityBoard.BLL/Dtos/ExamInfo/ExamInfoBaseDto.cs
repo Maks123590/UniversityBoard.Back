@@ -1,8 +1,8 @@
-﻿namespace UniversityBoard.DAL.Common.Models
+﻿namespace UniversityBoard.BLL.Dtos.ExamInfo
 {
     using System;
 
-    public class ExamInfo
+    public class ExamInfoBaseDto
     {
         public int Id { get; set; }
 

@@ -1,6 +1,6 @@
-﻿namespace UniversityBoard.DAL.Common.Models
+﻿namespace UniversityBoard.BLL.Dtos.AcademicDiscipline
 {
-    public class AcademicDiscipline
+    public class AcademicDisciplineDto
     {
         public string DisciplineCode { get; set; }
 
