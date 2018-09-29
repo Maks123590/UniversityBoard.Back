@@ -35,7 +35,7 @@
         /// <param name="groupId">Идентификатор группы</param>
         /// <param name="disciplineCode">Код дисциплины</param>
         /// <returns></returns>
-        [HttpGet("{groupId:int}/{disciplineCode:string}")]
+        [HttpGet("{groupId:int}/{disciplineCode}")]
         public async Task<ExamGroupInfoDto> GetByGroupAndDisciplineId(int groupId, string disciplineCode)
         {
             return await this.examInfoServices.GetByGroupAndDisciplineCode(groupId, disciplineCode);
