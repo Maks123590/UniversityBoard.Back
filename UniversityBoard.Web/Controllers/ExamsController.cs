@@ -63,7 +63,7 @@
         /// <summary>
         /// Обновляет информацию об сдаче экзамена
         /// </summary>
-        [HttpPut("{id}")]
+        [HttpPut]
         public async Task<ExamInfoDto> Update(ExamInfoUpdateDto examInfo)
         {
             return await this.examInfoServices.Update(examInfo);
