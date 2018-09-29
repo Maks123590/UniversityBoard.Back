@@ -23,5 +23,7 @@
         public int HoursCount { get; set; }
 
         public int AppraisalType { get; set; }
+
+        public AcademicDiscipline AcademicDiscipline { get; set; }
     }
 }

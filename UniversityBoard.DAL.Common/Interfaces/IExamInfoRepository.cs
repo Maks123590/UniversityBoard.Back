@@ -1,13 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-
-namespace UniversityBoard.DAL.Common.Interfaces
+﻿namespace UniversityBoard.DAL.Common.Interfaces
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+
     using UniversityBoard.DAL.Common.Models;
 
     public interface IExamInfoRepository : IRepository<ExamInfo>, IRepository<int, ExamInfo>
     {
-        Task<IEnumerable<ExamInfo>> GetByGroupAndDisciplineId(int groupId, int disciplineId);
+        Task<IEnumerable<ExamInfo>> GetByGroupAndDisciplineCode(int groupId, string disciplineCode);
 
         Task<IEnumerable<ExamInfo>> GetByStudentId(int id);
     }

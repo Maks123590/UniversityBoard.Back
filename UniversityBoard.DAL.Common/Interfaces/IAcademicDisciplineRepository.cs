@@ -2,7 +2,7 @@
 {
     using UniversityBoard.DAL.Common.Models;
 
-    public interface IAcademicDisciplineRepository : IRepository<AcademicDiscipline>, IRepository<int, AcademicDiscipline>
+    public interface IAcademicDisciplineRepository : IRepository<AcademicDiscipline>, IRepository<string, AcademicDiscipline>
     {
     }
 }

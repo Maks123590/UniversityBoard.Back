@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UniversityBoard.BLL.Dtos.Group;
 
 namespace UniversityBoard.BLL.Dtos.ExamInfo

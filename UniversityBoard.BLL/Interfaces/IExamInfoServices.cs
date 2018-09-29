@@ -10,7 +10,7 @@
     {
         Task<IEnumerable<ExamInfoDto>> GetByStudentId(int id);
 
-        Task<ExamGroupInfoDto> GetByGroupAndDisciplineId(int groupId, int disciplineId);
+        Task<ExamGroupInfoDto> GetByGroupAndDisciplineCode(int groupId, string disciplineCode);
 
         Task<ExamInfoDto> Get(int id);
 

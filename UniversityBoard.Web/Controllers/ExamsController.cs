@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using UniversityBoard.BLL.Dtos.ExamInfo;
-using UniversityBoard.BLL.Interfaces;
-
-namespace UniversityBoard.Web.Controllers
+﻿namespace UniversityBoard.Web.Controllers
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Mvc;
+
+    using UniversityBoard.BLL.Dtos.ExamInfo;
+    using UniversityBoard.BLL.Interfaces;
+
     [Route("api/[controller]")]
     [ApiController]
     public class ExamsController : ControllerBase
@@ -30,29 +29,53 @@ namespace UniversityBoard.Web.Controllers
             return await this.examInfoServices.GetByStudentId(id);
         }
 
-        // GET: api/Exams/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        /// <summary>
+        /// Возвращает сводную информацию об экзамене по определенному предмету в одной группе
+        /// </summary>
+        /// <param name="groupId">Идентификатор группы</param>
+        /// <param name="disciplineCode">Код дисциплины</param>
+        /// <returns></returns>
+        [HttpGet("{groupId:int}/{disciplineCode:string}")]
+        public async Task<ExamGroupInfoDto> GetByGroupAndDisciplineId(int groupId, string disciplineCode)
         {
-            return "value";
+            return await this.examInfoServices.GetByGroupAndDisciplineCode(groupId, disciplineCode);
         }
 
-        // POST: api/Exams
+        /// <summary>
+        /// Возвращает информацию об экзамене по ее идентификатору
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("{id:int}")]
+        public async Task<ExamInfoDto> Get(int id)
+        {
+            return await this.examInfoServices.Get(id);
+        }
+
+        /// <summary>
+        /// Создает информацию об сдаче экзамена
+        /// </summary>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ExamInfoDto> Create(ExamInfoCreateDto examInfo)
         {
+            return await this.examInfoServices.Create(examInfo);
         }
 
-        // PUT: api/Exams/5
+        /// <summary>
+        /// Обновляет информацию об сдаче экзамена
+        /// </summary>
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<ExamInfoDto> Update(ExamInfoUpdateDto examInfo)
         {
+            return await this.examInfoServices.Update(examInfo);
         }
 
-        // DELETE: api/ApiWithActions/5
+        /// <summary>
+        /// Удаляет информацию об сдаче экзамена
+        /// </summary>
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
+            await this.examInfoServices.Delete(id);
         }
     }
 }

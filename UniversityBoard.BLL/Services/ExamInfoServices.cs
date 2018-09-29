@@ -16,30 +16,36 @@
     {
         private readonly IExamInfoRepository examInfoRepository;
         private readonly IGroupRepository groupRepository;
+        private readonly IAcademicDisciplineRepository academicDisciplineRepository;
 
-        public ExamInfoServices(IExamInfoRepository examInfoRepository, IGroupRepository groupRepository)
+        public ExamInfoServices(IExamInfoRepository examInfoRepository, IGroupRepository groupRepository, IAcademicDisciplineRepository academicDisciplineRepository)
         {
             this.examInfoRepository = examInfoRepository;
             this.groupRepository = groupRepository;
+            this.academicDisciplineRepository = academicDisciplineRepository;
         }
 
         public async Task<IEnumerable<ExamInfoDto>> GetByStudentId(int id)
         {
             var examModels = await this.examInfoRepository.GetByStudentId(id);
 
+            foreach (var examModel in examModels)
+            {
+                await this.AddRelatedEntities(examModel);
+            }
+
             return examModels.Adapt<IEnumerable<ExamInfoDto>>();
         }
 
-        public async Task<ExamGroupInfoDto> GetByGroupAndDisciplineId(int groupId, int disciplineId)
+        public async Task<ExamGroupInfoDto> GetByGroupAndDisciplineCode(int groupId, string disciplineCode)
         {
-            var examInfos = (await this.examInfoRepository.GetByGroupAndDisciplineId(groupId, disciplineId)).Adapt<IEnumerable<ExamInfoDto>>().ToArray();
+            var examInfos = (await this.examInfoRepository.GetByGroupAndDisciplineCode(groupId, disciplineCode)).Adapt<IEnumerable<ExamInfoDto>>().ToArray();
 
             var groupInfo = new ExamGroupInfoDto
             {
                 Group = (await this.groupRepository.Get(groupId)).Adapt<GroupBaseDto>(),
                 ExamInfos = examInfos,
             };
-
 
             int GetScoreCount(int score) => examInfos.Count(e => e.Score == score);
 
@@ -58,6 +64,8 @@
         {
             var examModel = await this.examInfoRepository.Get(id);
 
+            await this.AddRelatedEntities(examModel);
+
             return examModel.Adapt<ExamInfoDto>();
         }
 
@@ -66,6 +74,8 @@
             var forCreate = examInfo.Adapt<ExamInfo>();
 
             var newExamInfo = await this.examInfoRepository.Create(forCreate);
+
+            await this.AddRelatedEntities(newExamInfo);
 
             return newExamInfo.Adapt<ExamInfoDto>();
         }
@@ -76,12 +86,19 @@
 
             var updatedExamInfo = await this.examInfoRepository.Update(forUpdate);
 
+            await this.AddRelatedEntities(updatedExamInfo);
+
             return updatedExamInfo.Adapt<ExamInfoDto>();
         }
 
         public async Task Delete(int id)
         {
             await this.examInfoRepository.Delete(id);
+        }
+
+        private async Task AddRelatedEntities(ExamInfo examInfo)
+        {
+            examInfo.AcademicDiscipline = await this.academicDisciplineRepository.Get(examInfo.AcademicDisciplineCode);
         }
     }
 }

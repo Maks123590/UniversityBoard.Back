@@ -43,10 +43,13 @@
             services.AddTransient<IGroupRepository, GroupRepository>();
             services.AddTransient<IStudentCardRepository, StudentCardsRepository>();
             services.AddTransient<IEducationalDirectionRepository, EducationalDirectionRepository>();
+            services.AddTransient<IExamInfoRepository, ExamInfoRepository>();
+            services.AddTransient<IAcademicDisciplineRepository, AcademicDisciplineRepository>();
 
             services.AddTransient<IStudentServices, StudentServices>();
             services.AddTransient<IGroupServices, GroupServices>();
             services.AddTransient<IStudentCardServices, StudentCardServices>();
+            services.AddTransient<IExamInfoServices, ExamInfoServices>();
 
             services.AddSwaggerGen(c =>
             {
@@ -62,7 +65,8 @@
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                // app.UseDeveloperExceptionPage();
+                app.UseStatusCodePages();
             }
             else
             {
