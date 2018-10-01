@@ -56,7 +56,7 @@
         /// </summary>
         /// <param name="code">код дисциплины</param>
         /// <returns></returns>
-        [HttpGet("{code:int}")]
+        [HttpGet("{code}")]
         public async Task<AcademicDisciplineDto> Get(string code)
         {
             return await this.academicDisciplineService.Get(code);
@@ -67,7 +67,7 @@
         /// </summary>
         /// <param name="code">код дисциплины</param>
         /// <returns></returns>
-        [HttpDelete("{code:int}")]
+        [HttpDelete("{code}")]
         public async Task Delete(string code)
         {
             await this.academicDisciplineService.Delete(code);
@@ -78,7 +78,7 @@
         /// </summary>
         /// <param name="groupId">идентификатор группы</param>
         /// <returns></returns>
-        [HttpGet("{groupId:int}")]
+        [HttpGet("byGroup/{groupId:int}")]
         public async Task<IEnumerable<AcademicDisciplineDto>> GetByGroup(int groupId)
         {
             return await this.academicDisciplineService.GetByGroup(groupId);

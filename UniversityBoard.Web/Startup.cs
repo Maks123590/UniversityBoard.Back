@@ -50,6 +50,7 @@
             services.AddTransient<IGroupServices, GroupServices>();
             services.AddTransient<IStudentCardServices, StudentCardServices>();
             services.AddTransient<IExamInfoServices, ExamInfoServices>();
+            services.AddTransient<IAcademicDisciplineService, AcademicDisciplineService>();
 
             services.AddSwaggerGen(c =>
             {
@@ -65,8 +66,8 @@
         {
             if (env.IsDevelopment())
             {
-                // app.UseDeveloperExceptionPage();
-                app.UseStatusCodePages();
+                app.UseDeveloperExceptionPage();
+                // app.UseStatusCodePages();
             }
             else
             {

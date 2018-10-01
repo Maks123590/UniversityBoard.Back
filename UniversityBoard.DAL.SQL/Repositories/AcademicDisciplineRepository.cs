@@ -23,14 +23,26 @@
             return await this.dbConnection.QueryAsync<AcademicDiscipline>(@"SELECT * FROM AcademicDisciplines;");
         }
 
-        public Task<AcademicDiscipline> Create(AcademicDiscipline entity)
+        public async Task<AcademicDiscipline> Create(AcademicDiscipline entity)
         {
-            throw new System.NotImplementedException();
+            return await this.dbConnection.QueryFirstAsync<AcademicDiscipline>(
+                       @"INSERT INTO AcademicDisciplines (DisciplineCode, Name, AcademicDepartamentCode) 
+					 VALUES(@DisciplineCode, @Name, @AcademicDepartamentCode);
+                          SELECT * FROM AcademicDisciplines where DisciplineCode = LAST_INSERT_ID();",
+                       entity);
         }
 
-        public Task<AcademicDiscipline> Update(AcademicDiscipline entity)
+        public async Task<AcademicDiscipline> Update(AcademicDiscipline entity)
         {
-            throw new System.NotImplementedException();
+            return await this.dbConnection.QueryFirstAsync<AcademicDiscipline>(
+                       @"UPDATE AcademicDisciplines
+                           SET DisciplineCode = @DisciplineCode,
+                               Name = @Name,
+                               AcademicDepartamentCode = @AcademicDepartamentCode,
+                        WHERE DisciplineCode = @DisciplineCode;
+
+                        SELECT * FROM AcademicDisciplines where DisciplineCode = @DisciplineCode",
+                       entity);
         }
 
         public async Task<AcademicDiscipline> Get(string id)
@@ -38,9 +50,9 @@
             return await this.dbConnection.QuerySingleAsync<AcademicDiscipline>(@"SELECT * FROM AcademicDisciplines WHERE DisciplineCode = @id;", new { id });
         }
 
-        public Task Delete(string id)
+        public async Task Delete(string id)
         {
-            throw new System.NotImplementedException();
+            await this.dbConnection.ExecuteAsync(@"DELETE FROM AcademicDisciplines WHERE DisciplineCode = @DisciplineCode", new { DisciplineCode = id });
         }
 
         public async Task<IEnumerable<AcademicDiscipline>> GetByGroup(int groupId)
