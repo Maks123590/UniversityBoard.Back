@@ -17,12 +17,14 @@
         private readonly IExamInfoRepository examInfoRepository;
         private readonly IGroupRepository groupRepository;
         private readonly IAcademicDisciplineRepository academicDisciplineRepository;
+        private readonly IStudentRepository studentRepository;
 
-        public ExamInfoServices(IExamInfoRepository examInfoRepository, IGroupRepository groupRepository, IAcademicDisciplineRepository academicDisciplineRepository)
+        public ExamInfoServices(IExamInfoRepository examInfoRepository, IGroupRepository groupRepository, IAcademicDisciplineRepository academicDisciplineRepository, IStudentRepository studentRepository)
         {
             this.examInfoRepository = examInfoRepository;
             this.groupRepository = groupRepository;
             this.academicDisciplineRepository = academicDisciplineRepository;
+            this.studentRepository = studentRepository;
         }
 
         public async Task<IEnumerable<ExamInfoDto>> GetByStudentId(int id)
@@ -99,6 +101,7 @@
         private async Task AddRelatedEntities(ExamInfo examInfo)
         {
             examInfo.AcademicDiscipline = await this.academicDisciplineRepository.Get(examInfo.AcademicDisciplineCode);
+            examInfo.Student = await this.studentRepository.Get(examInfo.StudentId);
         }
     }
 }

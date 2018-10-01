@@ -6,6 +6,6 @@
 
         public string Name { get; set; }
 
-        public string EducationalDirectionCode { get; set; }
+        public int AcademicDepartamentCode { get; set; }
     }
 }
