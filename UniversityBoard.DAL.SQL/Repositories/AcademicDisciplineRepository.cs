@@ -42,5 +42,15 @@
         {
             throw new System.NotImplementedException();
         }
+
+        public async Task<IEnumerable<AcademicDiscipline>> GetByGroup(int groupId)
+        {
+            return await this.dbConnection.QueryAsync<AcademicDiscipline>(
+                    @"Select distinct d.DisciplineCode, d.Name, d.AcademicDepartamentCode 
+                        from AcademicDisciplines d 
+                      inner join ExamInfos e on d.DisciplineCode = e.AcademicDisciplineCode 
+                        where e.GroupId = @groupId",
+                    new { groupId });
+        }
     }
 }
