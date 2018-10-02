@@ -68,7 +68,7 @@
 
         public Task<IEnumerable<ExamInfo>> GetByStudentId(int id)
         {
-            return this.connection.QueryAsync<ExamInfo>(@"SELECT * FROM ExamInfos WHERE StudentId = 2;");
+            return this.connection.QueryAsync<ExamInfo>(@"SELECT * FROM ExamInfos WHERE StudentId = @id;", new { id });
         }
     }
 }

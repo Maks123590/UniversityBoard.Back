@@ -36,7 +36,7 @@
                 await this.AddRelatedEntities(examModel);
             }
 
-            return examModels.Adapt<IEnumerable<ExamInfoDto>>();
+            return examModels.Adapt<IEnumerable<ExamInfoDto>>().OrderBy(e => e.Date);
         }
 
         public async Task<ExamGroupInfoDto> GetByGroupAndDisciplineCode(int groupId, string disciplineCode)
