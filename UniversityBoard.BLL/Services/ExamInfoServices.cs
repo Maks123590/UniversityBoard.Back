@@ -8,6 +8,7 @@
 
     using UniversityBoard.BLL.Dtos.ExamInfo;
     using UniversityBoard.BLL.Dtos.Group;
+    using UniversityBoard.BLL.Dtos.Student;
     using UniversityBoard.BLL.Interfaces;
     using UniversityBoard.DAL.Common.Interfaces;
     using UniversityBoard.DAL.Common.Models;
@@ -27,16 +28,22 @@
             this.studentRepository = studentRepository;
         }
 
-        public async Task<IEnumerable<ExamInfoDto>> GetByStudentId(int id)
+        public async Task<OneStudentExamInfosDto> GetByStudentId(int id)
         {
             var examModels = await this.examInfoRepository.GetByStudentId(id);
 
             foreach (var examModel in examModels)
             {
-                await this.AddRelatedEntities(examModel);
+                examModel.AcademicDiscipline = await this.academicDisciplineRepository.Get(examModel.AcademicDisciplineCode);
             }
 
-            return examModels.Adapt<IEnumerable<ExamInfoDto>>().OrderBy(e => e.Date);
+            var student = await this.studentRepository.Get(id);
+
+            return new OneStudentExamInfosDto
+                       {
+                           Student = student.Adapt<StudentBaseDto>(),
+                           ExamInfoList = examModels.Adapt<IEnumerable<ExamInfoDto>>().OrderByDescending(e => e.Date)
+                       };
         }
 
         public async Task<ExamGroupInfoDto> GetByGroupAndDisciplineCode(int groupId, string disciplineCode)

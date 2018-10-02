@@ -24,7 +24,7 @@
         /// </summary>
         /// <returns></returns>
         [HttpGet("student/{id:int}")]
-        public async Task<IEnumerable<ExamInfoDto>> GetByStudentId(int id)
+        public async Task<OneStudentExamInfosDto> GetByStudentId(int id)
         {
             return await this.examInfoServices.GetByStudentId(id);
         }
