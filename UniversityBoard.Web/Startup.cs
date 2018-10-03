@@ -37,7 +37,7 @@
             
             var connectionString = this.Configuration.GetConnectionString("DefaultSqlConnectionString");
 
-            services.AddSingleton<IDbConnection, DbConnection>(provider => new MySqlConnection(connectionString));
+            services.AddTransient<IDbConnection, DbConnection>(provider => new MySqlConnection(connectionString));
 
             services.AddTransient<IStudentRepository, StudentsRepository>();
             services.AddTransient<IGroupRepository, GroupRepository>();
@@ -76,11 +76,7 @@
 
 
             app.UseCors(
-                options => options.AllowAnyOrigin()
-                                  .AllowAnyHeader()
-                                  .AllowAnyMethod()
-                                  .AllowCredentials()
-            );
+                options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials());
 
             app.UseHttpsRedirection();
             app.UseMvc();
