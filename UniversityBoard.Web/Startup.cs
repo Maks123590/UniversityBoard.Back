@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using UniversityBoard.DAL.ORM;
 using UniversityBoard.DAL.ORM.Repositories;
+using UniversityBoard.Web.Configurations;
 
 namespace UniversityBoard.Web
 {
@@ -33,8 +34,7 @@ namespace UniversityBoard.Web
         }
 
         public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
+        
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
@@ -43,34 +43,15 @@ namespace UniversityBoard.Web
             
             var connectionString = this.Configuration.GetConnectionString("DefaultSqlConnectionString");
             var entityFrameworkConnectionString = this.Configuration.GetConnectionString("EntityFrameworkConnectionString");
+            var mongoDbconnectionString = this.Configuration.GetConnectionString("MongoDbConnectionString");
 
 
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationContext>();
+            // services.ConfigureSqlRepositories(connectionString);                 // Use one!
+            services.ConfigureOrmRepositories(entityFrameworkConnectionString);
+            // services.ConfigureNoSqlRepositories(mongoDbconnectionString);
 
-            var options = optionsBuilder.UseMySql(entityFrameworkConnectionString,
-                mysqlOptions =>
-                {
-                    mysqlOptions.ServerVersion(new Version(5, 7, 17),
-                        ServerType.MySql);
-                }).Options;
-           
+            services.ConfigureBllServices();
 
-            services.AddTransient<IDbConnection, DbConnection>(provider => new MySqlConnection(connectionString));
-            services.AddTransient<DbContext, ApplicationContext>(provider => new ApplicationContext(options));
-
-            services.AddTransient<IStudentRepository, StudentsRepository>();
-            services.AddTransient<IGroupRepository, GroupRepository>();
-            services.AddTransient<IStudentCardRepository, StudentCardsRepository>();
-            services.AddTransient<IEducationalDirectionRepository, EducationalDirectionRepository>();
-            services.AddTransient<IExamInfoRepository, ExamInfoRepository>();
-            services.AddTransient<IAcademicDisciplineRepository, AcademicDisciplineOrmRepository>();
-            // services.AddTransient<IAcademicDisciplineRepository, AcademicDisciplineRepository>();
-
-            services.AddTransient<IStudentServices, StudentServices>();
-            services.AddTransient<IGroupServices, GroupServices>();
-            services.AddTransient<IStudentCardServices, StudentCardServices>();
-            services.AddTransient<IExamInfoServices, ExamInfoServices>();
-            services.AddTransient<IAcademicDisciplineService, AcademicDisciplineService>();
 
             services.AddSwaggerGen(c =>
             {
@@ -80,8 +61,8 @@ namespace UniversityBoard.Web
                 c.IncludeXmlComments(filePath);
             });
         }
+        
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
