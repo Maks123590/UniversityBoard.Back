@@ -33,12 +33,9 @@
         {
             var optionsBuilder = new DbContextOptionsBuilder<ApplicationContext>();
 
-            var options = optionsBuilder.UseMySql(connectionString,
-                mysqlOptions =>
-                {
-                    mysqlOptions.ServerVersion(new Version(5, 7, 17),
-                        ServerType.MySql);
-                }).Options;
+            var options = optionsBuilder.UseMySql(
+                connectionString,
+                mysqlOptions => { mysqlOptions.ServerVersion(new Version(5, 5, 17), ServerType.MySql); }).Options;
 
             services.AddTransient<DbContext, ApplicationContext>(provider => new ApplicationContext(options));
             

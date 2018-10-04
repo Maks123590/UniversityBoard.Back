@@ -78,13 +78,13 @@ namespace UniversityBoard.BLL.Services
 
         private async Task AddRelatedEntities(Group group, bool addAllStudents = true)
         {
-            group.Head = await this.studentRepository.Get(group.HeadId);
+            group.Head = group.HeadId.HasValue ? await this.studentRepository.Get(group.HeadId.Value) : null;
 
             var students = (await this.studentRepository.GetByGroupId(group.Id)).ToList();
 
             group.StudentsCount = students.Count;
 
-            group.EducationalDirection = await educationalDirectionRepository.Get(group.EducationalDirectionCode);
+            group.EducationalDirection = await this.educationalDirectionRepository.Get(group.EducationalDirectionCode);
 
             if (addAllStudents)
             {

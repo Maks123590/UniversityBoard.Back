@@ -8,7 +8,7 @@
 
         public string Number { get; set; }
 
-        public int HeadId { get; set; }
+        public int? HeadId { get; set; }
 
         public DateTime FormationDate { get; set; }
 

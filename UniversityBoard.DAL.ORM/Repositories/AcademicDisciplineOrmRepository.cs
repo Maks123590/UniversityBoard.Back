@@ -1,7 +1,7 @@
 ﻿namespace UniversityBoard.DAL.ORM.Repositories
 {
     using System.Collections.Generic;
-
+    using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
 
@@ -15,9 +15,15 @@
         {
         }
 
-        public Task<IEnumerable<AcademicDiscipline>> GetByGroup(int groupId)
+        public async Task<IEnumerable<AcademicDiscipline>> GetByGroup(int groupId)
         {
-            throw new System.NotImplementedException();
+            var examInfos = this.Context.Set<ExamInfo>();
+
+            return await this.DbSet.Join(
+                       examInfos,
+                       discipline => discipline.DisciplineCode,
+                       info => info.AcademicDisciplineCode,
+                (discipline, info) => new { Discipline = discipline, info.GroupId }).Where(t => t.GroupId == groupId).Select(t => t.Discipline).AsNoTracking().ToListAsync();
         }
     }
 }

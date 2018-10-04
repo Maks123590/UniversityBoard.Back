@@ -27,10 +27,10 @@
 
         public int AppraisalType { get; set; }
 
-        [NotMapped]
+        [ForeignKey(nameof(AcademicDisciplineCode))]
         public AcademicDiscipline AcademicDiscipline { get; set; }
 
-        [NotMapped]
+        [ForeignKey(nameof(StudentId))]
         public Student Student { get; set; }
     }
 }

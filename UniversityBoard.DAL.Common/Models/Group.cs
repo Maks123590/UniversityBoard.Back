@@ -14,20 +14,22 @@
 
         public string Number { get; set; }
 
-        public int HeadId { get; set; }
+        public int? HeadId { get; set; }
 
         public DateTime FormationDate { get; set; }
 
-        public IEnumerable<Student> Students { get; set; }
-
+        [NotMapped]
         public int StudentsCount { get; set; }
 
         public string EducationalDirectionCode { get; set; }
 
-        [NotMapped]
+        [ForeignKey(nameof(HeadId))]
         public Student Head { get; set; }
 
-        [NotMapped]
+        [ForeignKey(nameof(EducationalDirectionCode))]
         public EducationalDirection EducationalDirection { get; set; }
+
+        [NotMapped]
+        public IEnumerable<Student> Students { get; set; }
     }
 }

@@ -13,9 +13,25 @@
         {
         }
 
-        public Task<StudentCard> Upsert(StudentCard studentCard)
+        public async Task<StudentCard> Upsert(StudentCard studentCard)
         {
-            throw new System.NotImplementedException();
+            var card = await this.DbSet.FirstOrDefaultAsync(card1 => card1.Number == studentCard.Number);
+
+            StudentCard newCard;
+
+            if (card == null)
+            {
+                newCard = (await this.DbSet.AddAsync(studentCard)).Entity;
+            }
+            else
+            {
+                this.Context.Entry(studentCard).State = EntityState.Modified;
+                newCard = studentCard;
+            }
+
+            await this.Context.SaveChangesAsync();
+
+            return newCard;
         }
     }
 }

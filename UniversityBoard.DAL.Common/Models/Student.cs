@@ -28,7 +28,7 @@
 
         public Group Group { get; set; }
 
-        [NotMapped]
+        [ForeignKey("StudentCardNumber")]
         public StudentCard StudentCard { get; set; }
     }
 }

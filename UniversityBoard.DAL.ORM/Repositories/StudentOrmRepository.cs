@@ -1,6 +1,7 @@
 ﻿namespace UniversityBoard.DAL.ORM.Repositories
 {
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
@@ -15,9 +16,9 @@
         {
         }
 
-        public Task<IEnumerable<Student>> GetByGroupId(int groupId)
+        public async Task<IEnumerable<Student>> GetByGroupId(int groupId)
         {
-            throw new System.NotImplementedException();
+            return await this.DbSet.Where(s => s.GroupId == groupId).AsNoTracking().ToListAsync();
         }
     }
 }

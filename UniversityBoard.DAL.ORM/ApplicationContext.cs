@@ -5,6 +5,11 @@
 
     public sealed class ApplicationContext : DbContext
     {
+        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
+        {
+            this.Database.EnsureCreated();
+        }
+
         public DbSet<AcademicDepartament> AcademicDepartaments { get; set; }
 
         public DbSet<AcademicDiscipline> AcademicDisciplines { get; set; }
@@ -18,12 +23,5 @@
         public DbSet<Student> Students { get; set; }
 
         public DbSet<StudentCard> StudentCards { get; set; }
-
-        public ApplicationContext(DbContextOptions<ApplicationContext> options) 
-            :base(options)
-        {
-            Database.EnsureCreated();
-        }
-
     }
 }

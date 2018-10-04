@@ -1,9 +1,10 @@
 ﻿namespace UniversityBoard.BLL.Dtos.Group
 {
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations.Schema;
 
-    using UniversityBoard.BLL.Dtos.Student;
     using UniversityBoard.BLL.Dtos.EducationalDirection;
+    using UniversityBoard.BLL.Dtos.Student;
 
     public class GroupDto : GroupBaseDto
     {

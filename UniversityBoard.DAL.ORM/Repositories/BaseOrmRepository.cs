@@ -8,49 +8,49 @@
 
     public abstract class BaseOrmRepository<TKey, TEntity> : IRepository<TEntity>, IRepository<TKey, TEntity> where TEntity : class
     {
-        private readonly DbContext context;
-        private readonly DbSet<TEntity> dbSet;
+        protected readonly DbContext Context;
+        protected readonly DbSet<TEntity> DbSet;
 
         protected BaseOrmRepository(DbContext context)
         {
-            this.context = context;
-            this.dbSet = context.Set<TEntity>();
+            this.Context = context;
+            this.DbSet = context.Set<TEntity>();
         }
 
         public async Task<IEnumerable<TEntity>> GetAll()
         {
-            return await dbSet.AsNoTracking().ToListAsync();
+            return await this.DbSet.AsNoTracking().ToListAsync();
         }
 
         public async Task<TEntity> Create(TEntity entity)
         {
-            var newEntity = await dbSet.AddAsync(entity);
+            var newEntity = await this.DbSet.AddAsync(entity);
 
-            await context.SaveChangesAsync();
+            await this.Context.SaveChangesAsync();
 
             return newEntity.Entity;
         }
 
         public async Task<TEntity> Update(TEntity entity)
         {
-            context.Entry(entity).State = EntityState.Modified;
-            context.SaveChanges();
+            this.Context.Entry(entity).State = EntityState.Modified;
+            await this.Context.SaveChangesAsync();
 
-            return await dbSet.FindAsync(entity);
+            return entity;
         }
 
         public async Task<TEntity> Get(TKey id)
         {
-            return await dbSet.FindAsync(id);
+            return await this.DbSet.FindAsync(id);
         }
 
         public async Task Delete(TKey id)
         {
-            var entity = await dbSet.FindAsync(id);
+            var entity = await this.DbSet.FindAsync(id);
 
-            dbSet.Remove(entity);
+            this.DbSet.Remove(entity);
 
-            await context.SaveChangesAsync();
+            await this.Context.SaveChangesAsync();
         }
     }
 }
