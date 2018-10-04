@@ -1,14 +1,5 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
-using UniversityBoard.DAL.ORM;
-using UniversityBoard.DAL.ORM.Repositories;
-using UniversityBoard.Web.Configurations;
-
-namespace UniversityBoard.Web
+﻿namespace UniversityBoard.Web
 {
-    using System.Data;
-    using System.Data.Common;
     using System.IO;
 
     using Microsoft.AspNetCore.Builder;
@@ -16,15 +7,9 @@ namespace UniversityBoard.Web
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-
-    using MySql.Data.MySqlClient;
-
     using Swashbuckle.AspNetCore.Swagger;
 
-    using UniversityBoard.BLL.Interfaces;
-    using UniversityBoard.BLL.Services;
-    using UniversityBoard.DAL.Common.Interfaces;
-    using UniversityBoard.DAL.SQL.Repositories;
+    using UniversityBoard.Web.Configurations;
 
     public class Startup
     {

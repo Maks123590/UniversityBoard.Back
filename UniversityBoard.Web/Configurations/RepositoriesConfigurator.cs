@@ -41,6 +41,13 @@
                 }).Options;
 
             services.AddTransient<DbContext, ApplicationContext>(provider => new ApplicationContext(options));
+            
+
+            services.AddTransient<IStudentRepository, StudentOrmRepository>();
+            services.AddTransient<IGroupRepository, GroupOrmRepository>();
+            services.AddTransient<IStudentCardRepository, StudentCardOrmRepository>();
+            services.AddTransient<IEducationalDirectionRepository, EducationalDiresctionOrmRepository>();
+            services.AddTransient<IExamInfoRepository, ExamInfoOrmRepository>();
             services.AddTransient<IAcademicDisciplineRepository, AcademicDisciplineOrmRepository>();
         }
 

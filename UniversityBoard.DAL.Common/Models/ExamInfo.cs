@@ -1,9 +1,12 @@
 ﻿namespace UniversityBoard.DAL.Common.Models
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public class ExamInfo
     {
+        [Key]
         public int Id { get; set; }
 
         public DateTime Date { get; set; }
@@ -24,8 +27,10 @@
 
         public int AppraisalType { get; set; }
 
+        [NotMapped]
         public AcademicDiscipline AcademicDiscipline { get; set; }
 
+        [NotMapped]
         public Student Student { get; set; }
     }
 }

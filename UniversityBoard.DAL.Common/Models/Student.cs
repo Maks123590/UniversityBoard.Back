@@ -2,10 +2,14 @@
 {
     using System;
 
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     using UniversityBoard.DAL.Common.Enums;
 
     public class Student
     {
+        [Key]
         public int Id { get; set; }
 
         public string FirstName { get; set; }
@@ -24,6 +28,7 @@
 
         public Group Group { get; set; }
 
+        [NotMapped]
         public StudentCard StudentCard { get; set; }
     }
 }
