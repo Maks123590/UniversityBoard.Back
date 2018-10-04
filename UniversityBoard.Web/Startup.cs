@@ -1,4 +1,10 @@
-﻿namespace UniversityBoard.Web
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using UniversityBoard.DAL.ORM;
+using UniversityBoard.DAL.ORM.Repositories;
+
+namespace UniversityBoard.Web
 {
     using System.Data;
     using System.Data.Common;
@@ -36,15 +42,29 @@
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             
             var connectionString = this.Configuration.GetConnectionString("DefaultSqlConnectionString");
+            var entityFrameworkConnectionString = this.Configuration.GetConnectionString("EntityFrameworkConnectionString");
+
+
+            var optionsBuilder = new DbContextOptionsBuilder<ApplicationContext>();
+
+            var options = optionsBuilder.UseMySql(entityFrameworkConnectionString,
+                mysqlOptions =>
+                {
+                    mysqlOptions.ServerVersion(new Version(5, 7, 17),
+                        ServerType.MySql);
+                }).Options;
+           
 
             services.AddTransient<IDbConnection, DbConnection>(provider => new MySqlConnection(connectionString));
+            services.AddTransient<DbContext, ApplicationContext>(provider => new ApplicationContext(options));
 
             services.AddTransient<IStudentRepository, StudentsRepository>();
             services.AddTransient<IGroupRepository, GroupRepository>();
             services.AddTransient<IStudentCardRepository, StudentCardsRepository>();
             services.AddTransient<IEducationalDirectionRepository, EducationalDirectionRepository>();
             services.AddTransient<IExamInfoRepository, ExamInfoRepository>();
-            services.AddTransient<IAcademicDisciplineRepository, AcademicDisciplineRepository>();
+            services.AddTransient<IAcademicDisciplineRepository, AcademicDisciplineOrmRepository>();
+            // services.AddTransient<IAcademicDisciplineRepository, AcademicDisciplineRepository>();
 
             services.AddTransient<IStudentServices, StudentServices>();
             services.AddTransient<IGroupServices, GroupServices>();
