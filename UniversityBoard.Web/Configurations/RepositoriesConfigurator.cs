@@ -31,14 +31,20 @@
 
         public static void ConfigureOrmRepositories(this IServiceCollection services, string connectionString)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationContext>();
+            //var optionsBuilder = new DbContextOptionsBuilder<ApplicationContext>();
 
-            var options = optionsBuilder.UseMySql(
-                connectionString,
-                mysqlOptions => { mysqlOptions.ServerVersion(new Version(5, 5, 17), ServerType.MySql); }).Options;
+            //var options = optionsBuilder.UseMySql(
+            //    connectionString,
+            //    mysqlOptions => { mysqlOptions.ServerVersion(new Version(5, 5, 17), ServerType.MySql); }).Options;
 
-            services.AddTransient<DbContext, ApplicationContext>(provider => new ApplicationContext(options));
-            
+            //services.AddTransient<DbContext, ApplicationContext>(provider => new ApplicationContext(options));
+
+            services.AddEntityFrameworkMySql().AddDbContext<ApplicationContext>(options =>
+                {
+                    options.UseMySql(connectionString);
+                }, ServiceLifetime.Transient);
+
+            services.AddTransient<DbContext, ApplicationContext>();
 
             services.AddTransient<IStudentRepository, StudentOrmRepository>();
             services.AddTransient<IGroupRepository, GroupOrmRepository>();
