@@ -65,7 +65,7 @@
         /// </summary>
         /// <param name="id">Идентификатор</param>
         [HttpDelete("{id:int}")]
-        public async void Delete(int id)
+        public async void Delete([FromRoute] int id)
         {
             await this.groupServices.Delete(id);
         }

@@ -31,8 +31,8 @@
             var mongoDbconnectionString = this.Configuration.GetConnectionString("MongoDbConnectionString");
 
 
-            // services.ConfigureSqlRepositories(connectionString);                 // Use one!
-            services.ConfigureOrmRepositories(entityFrameworkConnectionString);
+            services.ConfigureSqlRepositories(connectionString);                 // Use one!
+            // services.ConfigureOrmRepositories(entityFrameworkConnectionString);
             // services.ConfigureNoSqlRepositories(mongoDbconnectionString);
 
             services.ConfigureBllServices();
