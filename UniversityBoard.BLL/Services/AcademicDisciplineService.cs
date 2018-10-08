@@ -53,5 +53,11 @@
             return (await this.academicDisciplineRepository.GetByGroup(groupId))
                 .Adapt<IEnumerable<AcademicDisciplineDto>>();
         }
+
+        public async Task<IEnumerable<AcademicDisciplineDto>> GetByAcademicDepartamentCode(int code)
+        {
+            return (await this.academicDisciplineRepository.GetByAcademicDepartamentCode(code))
+                .Adapt<IEnumerable<AcademicDisciplineDto>>();
+        }
     }
 }

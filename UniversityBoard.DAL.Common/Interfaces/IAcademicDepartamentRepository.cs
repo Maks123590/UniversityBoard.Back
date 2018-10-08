@@ -1,7 +1,8 @@
 ﻿namespace UniversityBoard.DAL.Common.Interfaces
 {
-    public interface IAcademicDepartamentRepository
+    using UniversityBoard.DAL.Common.Models;
+
+    public interface IAcademicDepartamentRepository : IRepository<AcademicDepartament>
     {
-        
     }
 }

@@ -64,5 +64,12 @@
                         where e.GroupId = @groupId",
                     new { groupId });
         }
+
+        public async Task<IEnumerable<AcademicDiscipline>> GetByAcademicDepartamentCode(int code)
+        {
+            return await this.dbConnection.QueryAsync<AcademicDiscipline>(
+                       @"SELECT * FROM AcademicDisciplines WHERE AcademicDepartamentCode = @code;",
+                       new { code });
+        }
     }
 }

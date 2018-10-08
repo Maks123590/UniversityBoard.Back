@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace UniversityBoard.DAL.Common.Models
+﻿namespace UniversityBoard.DAL.Common.Models
 {
     using System.ComponentModel.DataAnnotations;
 

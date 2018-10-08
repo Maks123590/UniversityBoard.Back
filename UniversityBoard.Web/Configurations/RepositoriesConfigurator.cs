@@ -26,6 +26,7 @@
             services.AddTransient<IEducationalDirectionRepository, EducationalDirectionRepository>();
             services.AddTransient<IExamInfoRepository, ExamInfoRepository>();
             services.AddTransient<IAcademicDisciplineRepository, AcademicDisciplineRepository>();
+            services.AddTransient<IAcademicDepartamentRepository, AcademicDepartamentsRepository>();
 
         }
 

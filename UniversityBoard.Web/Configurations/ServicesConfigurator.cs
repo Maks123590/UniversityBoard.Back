@@ -15,6 +15,7 @@
             services.AddTransient<IExamInfoServices, ExamInfoServices>();
             services.AddTransient<IAcademicDisciplineService, AcademicDisciplineService>();
             services.AddTransient<IEducationalDirectionServices, EducationalDirectionServices>();
+            services.AddTransient<IAcademicDepartamentService, AcademicDepartamentServices>();
         }
     }
 }

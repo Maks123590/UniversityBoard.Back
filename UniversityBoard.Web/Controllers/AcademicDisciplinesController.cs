@@ -83,5 +83,16 @@
         {
             return await this.academicDisciplineService.GetByGroup(groupId);
         }
+
+        /// <summary>
+        /// Возвращает дисциплины по коду кафедры
+        /// </summary>
+        /// <param name="code">код кафедры</param>
+        /// <returns></returns>
+        [HttpGet("byAcademicDepartament/{code:int}")]
+        public async Task<IEnumerable<AcademicDisciplineDto>> GetByAcademicDepartament(int code)
+        {
+            return await this.academicDisciplineService.GetByAcademicDepartamentCode(code);
+        }
     }
 }
