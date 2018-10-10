@@ -11,7 +11,6 @@
         {
             services.AddTransient<IStudentServices, StudentServices>();
             services.AddTransient<IGroupServices, GroupServices>();
-            services.AddTransient<IStudentCardServices, StudentCardServices>();
             services.AddTransient<IExamInfoServices, ExamInfoServices>();
             services.AddTransient<IAcademicDisciplineService, AcademicDisciplineService>();
             services.AddTransient<IEducationalDirectionServices, EducationalDirectionServices>();

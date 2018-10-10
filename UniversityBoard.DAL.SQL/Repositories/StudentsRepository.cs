@@ -26,8 +26,8 @@
         public async Task<Student> Create(Student entity)
         {
             return await this.connection.QueryFirstAsync<Student>(
-                       @" INSERT INTO Students (FirstName, LastName, MiddleName, Gender, BirthDay, StudentCardNumber, GroupId) 
-                            VALUES(@FirstName, @LastName, @MiddleName, @Gender, @BirthDay, @StudentCardNumber, @GroupId);
+                       @" INSERT INTO Students (FirstName, LastName, MiddleName, Gender, BirthDay, StudentCardNumber, StudentCardIssueDate, GroupId) 
+                            VALUES(@FirstName, @LastName, @MiddleName, @Gender, @BirthDay, @StudentCardNumber, @StudentCardIssueDate, @GroupId);
                           SELECT * FROM Students where id = LAST_INSERT_ID();",
                        entity);
         }
@@ -42,6 +42,7 @@
 	                     Gender = @Gender,
 	                     BirthDay = @BirthDay,
 	                     StudentCardNumber = @StudentCardNumber,
+                         StudentCardIssueDate = @StudentCardIssueDate,
 	                     GroupId = @GroupId
                     WHERE id = @id;
 

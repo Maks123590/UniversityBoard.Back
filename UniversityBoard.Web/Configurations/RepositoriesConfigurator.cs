@@ -22,7 +22,6 @@
 
             services.AddTransient<IStudentRepository, StudentsRepository>();
             services.AddTransient<IGroupRepository, GroupRepository>();
-            services.AddTransient<IStudentCardRepository, StudentCardsRepository>();
             services.AddTransient<IEducationalDirectionRepository, EducationalDirectionRepository>();
             services.AddTransient<IExamInfoRepository, ExamInfoRepository>();
             services.AddTransient<IAcademicDisciplineRepository, AcademicDisciplineRepository>();
@@ -38,18 +37,19 @@
             //    connectionString,
             //    mysqlOptions => { mysqlOptions.ServerVersion(new Version(5, 5, 17), ServerType.MySql); }).Options;
 
-            //services.AddTransient<DbContext, ApplicationContext>(provider => new ApplicationContext(options));
+            // services.AddTransient<DbContext, ApplicationContext>(provider => new ApplicationContext(options));
 
-            services.AddEntityFrameworkMySql().AddDbContext<ApplicationContext>(options =>
-                {
-                    options.UseMySql(connectionString);
-                }, ServiceLifetime.Transient);
+            services.AddEntityFrameworkMySql().AddDbContext<ApplicationContext>(
+                options =>
+                    {
+                        options.UseMySql(connectionString, builder => builder.ServerVersion(new Version(5, 5, 17), ServerType.MySql));
+                    },
+                ServiceLifetime.Transient);
 
             services.AddTransient<DbContext, ApplicationContext>();
 
             services.AddTransient<IStudentRepository, StudentOrmRepository>();
             services.AddTransient<IGroupRepository, GroupOrmRepository>();
-            services.AddTransient<IStudentCardRepository, StudentCardOrmRepository>();
             services.AddTransient<IEducationalDirectionRepository, EducationalDiresctionOrmRepository>();
             services.AddTransient<IExamInfoRepository, ExamInfoOrmRepository>();
             services.AddTransient<IAcademicDisciplineRepository, AcademicDisciplineOrmRepository>();

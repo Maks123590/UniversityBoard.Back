@@ -3,7 +3,6 @@
     using System;
 
     using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
 
     using UniversityBoard.DAL.Common.Enums;
 
@@ -24,11 +23,10 @@
 
         public int StudentCardNumber { get; set; }
 
+        public DateTime StudentCardIssueDate { get; set; }
+
         public int GroupId { get; set; }
 
         public Group Group { get; set; }
-
-        [ForeignKey("StudentCardNumber")]
-        public StudentCard StudentCard { get; set; }
     }
 }

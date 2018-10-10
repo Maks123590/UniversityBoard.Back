@@ -13,13 +13,11 @@
     public class StudentServices : IStudentServices
     {
         private readonly IStudentRepository studentRepository;
-        private readonly IStudentCardRepository studentCardRepository;
         private readonly IGroupRepository groupRepository;
 
-        public StudentServices(IStudentRepository studentRepository, IStudentCardRepository studentCardRepository, IGroupRepository groupRepository)
+        public StudentServices(IStudentRepository studentRepository, IGroupRepository groupRepository)
         {
             this.studentRepository = studentRepository;
-            this.studentCardRepository = studentCardRepository;
             this.groupRepository = groupRepository;
         }
 
@@ -48,9 +46,6 @@
         {
             var studentModel = student.Adapt<Student>();
 
-            await this.studentCardRepository.Upsert(
-                new StudentCard { Number = student.StudentCardNumber, IssueDate = student.StudentCardIssueDate });
-
             var newStudent = await this.studentRepository.Create(studentModel);
 
             await this.AddRelatedEntities(newStudent);
@@ -61,10 +56,7 @@
         public async Task<StudentDto> Update(StudentUpdateDto student)
         {
             var studentModel = student.Adapt<Student>();
-
-            await this.studentCardRepository.Upsert(
-                new StudentCard { Number = student.StudentCardNumber, IssueDate = student.StudentCardIssueDate });
-
+            
             var updatedStudent = await this.studentRepository.Update(studentModel);
 
             await this.AddRelatedEntities(updatedStudent);
@@ -79,7 +71,6 @@
 
         public async Task AddRelatedEntities(Student student)
         {
-            student.StudentCard = await this.studentCardRepository.Get(student.StudentCardNumber);
             student.Group = await this.groupRepository.Get(student.GroupId);
         }
     }
