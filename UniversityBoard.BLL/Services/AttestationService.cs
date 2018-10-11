@@ -17,13 +17,20 @@
         private readonly IExamInfoRepository examInfoRepository;
         private readonly IAcademicDisciplineRepository academicDisciplineRepository;
         private readonly IGroupRepository groupRepository;
+        private readonly IStudentRepository studentRepository;
 
-        public AttestationService(IAttestationRepository attestationRepository, IExamInfoRepository examInfoRepository, IAcademicDisciplineRepository academicDisciplineRepository, IGroupRepository groupRepository)
+        public AttestationService(
+            IAttestationRepository attestationRepository,
+            IExamInfoRepository examInfoRepository,
+            IAcademicDisciplineRepository academicDisciplineRepository,
+            IGroupRepository groupRepository,
+            IStudentRepository studentRepository)
         {
             this.attestationRepository = attestationRepository;
             this.examInfoRepository = examInfoRepository;
             this.academicDisciplineRepository = academicDisciplineRepository;
             this.groupRepository = groupRepository;
+            this.studentRepository = studentRepository;
         }
 
         public async Task<AttestationDto> Create(AttestationCreateDto entity)
@@ -79,6 +86,11 @@
             if (addExamInfos)
             {
                 attestation.ExamInfos = await this.examInfoRepository.GetByAttestationId(attestation.Id);
+
+                foreach (var a in attestation.ExamInfos)
+                {
+                    a.Student = await this.studentRepository.Get(a.StudentId);
+                }
             }
 
             if (addAcademicDiscipline)
@@ -96,14 +108,34 @@
         {
             var examInfos = attestationDto.ExamInfos.ToArray();
 
-            int GetScoreCount(int score) => examInfos.Count(e => e.Score == score);
+            int GetLevelCount(int level) => examInfos.Count(e => e.Level == level);
 
-            attestationDto.ScoreStatistics = new List<KeyValuePair<string, int>>
+            attestationDto.ScoreStatistics = new List<StatisticsDto>
                                             {
-                                                new KeyValuePair<string, int>("Отлично", GetScoreCount(5)),
-                                                new KeyValuePair<string, int>("Хорошо", GetScoreCount(4)),
-                                                new KeyValuePair<string, int>("Удовлетворительно", GetScoreCount(3)),
-                                                new KeyValuePair<string, int>("Не зачтено", examInfos.Length - GetScoreCount(5) - GetScoreCount(4) - GetScoreCount(3)),
+                                                new StatisticsDto
+                                                    {
+                                                        Label = "Отлично",
+                                                        Count = GetLevelCount(5),
+                                                        Color = "#f1c40f"
+                                                    },
+                                                new StatisticsDto
+                                                    {
+                                                        Label = "Хорошо",
+                                                        Count = GetLevelCount(4),
+                                                        Color = "#f39c12"
+                                                    },
+                                                new StatisticsDto
+                                                    {
+                                                        Label = "Удовлетворительно",
+                                                        Count = GetLevelCount(3),
+                                                        Color = "#3498db"
+                                                    },
+                                                new StatisticsDto
+                                                    {
+                                                        Label = "Не сдано",
+                                                        Count = examInfos.Length - GetLevelCount(5) - GetLevelCount(4) - GetLevelCount(3),
+                                                        Color = "#bdc3c7"
+                                                    },
                                             };
 
             return attestationDto;

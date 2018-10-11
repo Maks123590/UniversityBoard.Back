@@ -10,10 +10,10 @@
     {
         public AcademicDisciplineBaseDto AcademicDiscipline { get; set; }
 
-        public IEnumerable<ExamInfoBaseDto> ExamInfos { get; set; }
+        public IEnumerable<ExamInfoDto> ExamInfos { get; set; }
         
         public GroupBaseDto Group { get; set; }
 
-        public IEnumerable<KeyValuePair<string, int>> ScoreStatistics { get; set; }
+        public IEnumerable<StatisticsDto> ScoreStatistics { get; set; }
     }
 }
