@@ -15,14 +15,14 @@
         {
         }
 
-        public async Task<IEnumerable<ExamInfo>> GetByGroupAndDisciplineCode(int groupId, string disciplineCode)
-        {
-            return await this.DbSet.Where(e => e.GroupId == groupId && e.AcademicDisciplineCode == disciplineCode).AsNoTracking().ToListAsync();
-        }
-
         public async Task<IEnumerable<ExamInfo>> GetByStudentId(int id)
         {
             return await this.DbSet.Where(e => e.StudentId == id).AsNoTracking().ToListAsync();
+        }
+
+        public Task<IEnumerable<ExamInfo>> GetByAttestationId(int id)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

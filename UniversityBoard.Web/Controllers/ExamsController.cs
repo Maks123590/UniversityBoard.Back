@@ -1,6 +1,5 @@
 ﻿namespace UniversityBoard.Web.Controllers
 {
-    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Mvc;
@@ -30,23 +29,11 @@
         }
 
         /// <summary>
-        /// Возвращает сводную информацию об экзамене по определенному предмету в одной группе
-        /// </summary>
-        /// <param name="groupId">Идентификатор группы</param>
-        /// <param name="disciplineCode">Код дисциплины</param>
-        /// <returns></returns>
-        [HttpGet("{groupId:int}/{disciplineCode}")]
-        public async Task<ExamGroupInfoDto> GetByGroupAndDisciplineId(int groupId, string disciplineCode)
-        {
-            return await this.examInfoServices.GetByGroupAndDisciplineCode(groupId, disciplineCode);
-        }
-
-        /// <summary>
         /// Возвращает информацию об экзамене по ее идентификатору
         /// </summary>
         /// <returns></returns>
         [HttpGet("{id:int}")]
-        public async Task<ExamInfoDto> Get(int id)
+        public async Task<ExamInfoBaseDto> Get(int id)
         {
             return await this.examInfoServices.Get(id);
         }
@@ -55,7 +42,7 @@
         /// Создает информацию об сдаче экзамена
         /// </summary>
         [HttpPost]
-        public async Task<ExamInfoDto> Create(ExamInfoCreateDto examInfo)
+        public async Task<ExamInfoBaseDto> Create(ExamInfoCreateDto examInfo)
         {
             return await this.examInfoServices.Create(examInfo);
         }
@@ -64,7 +51,7 @@
         /// Обновляет информацию об сдаче экзамена
         /// </summary>
         [HttpPut]
-        public async Task<ExamInfoDto> Update(ExamInfoUpdateDto examInfo)
+        public async Task<ExamInfoBaseDto> Update(ExamInfoUpdateDto examInfo)
         {
             return await this.examInfoServices.Update(examInfo);
         }

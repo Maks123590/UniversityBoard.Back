@@ -26,7 +26,7 @@
             services.AddTransient<IExamInfoRepository, ExamInfoRepository>();
             services.AddTransient<IAcademicDisciplineRepository, AcademicDisciplineRepository>();
             services.AddTransient<IAcademicDepartamentRepository, AcademicDepartamentsRepository>();
-
+            services.AddTransient<IAttestationRepository, AttestationRepository>();
         }
 
         public static void ConfigureOrmRepositories(this IServiceCollection services, string connectionString)

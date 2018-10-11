@@ -6,8 +6,8 @@
 
     using Mapster;
 
+    using UniversityBoard.BLL.Dtos.AcademicDiscipline;
     using UniversityBoard.BLL.Dtos.ExamInfo;
-    using UniversityBoard.BLL.Dtos.Group;
     using UniversityBoard.BLL.Dtos.Student;
     using UniversityBoard.BLL.Interfaces;
     using UniversityBoard.DAL.Common.Interfaces;
@@ -19,22 +19,33 @@
         private readonly IGroupRepository groupRepository;
         private readonly IAcademicDisciplineRepository academicDisciplineRepository;
         private readonly IStudentRepository studentRepository;
+        private readonly IAttestationRepository attestationRepository;
 
-        public ExamInfoServices(IExamInfoRepository examInfoRepository, IGroupRepository groupRepository, IAcademicDisciplineRepository academicDisciplineRepository, IStudentRepository studentRepository)
+        public ExamInfoServices(
+            IExamInfoRepository examInfoRepository,
+            IGroupRepository groupRepository,
+            IAcademicDisciplineRepository academicDisciplineRepository,
+            IStudentRepository studentRepository,
+            IAttestationRepository attestationRepository)
         {
             this.examInfoRepository = examInfoRepository;
             this.groupRepository = groupRepository;
             this.academicDisciplineRepository = academicDisciplineRepository;
+            this.attestationRepository = attestationRepository;
             this.studentRepository = studentRepository;
         }
 
         public async Task<OneStudentExamInfosDto> GetByStudentId(int id)
         {
-            var examModels = await this.examInfoRepository.GetByStudentId(id);
+            var examModels = (await this.examInfoRepository.GetByStudentId(id)).Adapt<List<ExamInfoDto>>();
 
             foreach (var examModel in examModels)
             {
-                examModel.AcademicDiscipline = await this.academicDisciplineRepository.Get(examModel.AcademicDisciplineCode);
+                var attestation = await this.attestationRepository.Get(examModel.AttestationId);
+
+                examModel.AcademicDiscipline = (await this.academicDisciplineRepository.Get(attestation.AcademicDisciplineCode)).Adapt<AcademicDisciplineDto>();
+
+                examModel.AppraisalType = attestation.AppraisalType;
             }
 
             var student = await this.studentRepository.Get(id);
@@ -42,34 +53,11 @@
             return new OneStudentExamInfosDto
                        {
                            Student = student.Adapt<StudentBaseDto>(),
-                           ExamInfoList = examModels.Adapt<IEnumerable<ExamInfoDto>>().OrderByDescending(e => e.Date)
+                           ExamInfoList = examModels.OrderByDescending(e => e.Date)
                        };
         }
 
-        public async Task<ExamGroupInfoDto> GetByGroupAndDisciplineCode(int groupId, string disciplineCode)
-        {
-            var examInfos = (await this.examInfoRepository.GetByGroupAndDisciplineCode(groupId, disciplineCode)).Adapt<IEnumerable<ExamInfoDto>>().ToArray();
-
-            var groupInfo = new ExamGroupInfoDto
-            {
-                Group = (await this.groupRepository.Get(groupId)).Adapt<GroupBaseDto>(),
-                ExamInfos = examInfos,
-            };
-
-            int GetScoreCount(int score) => examInfos.Count(e => e.Score == score);
-
-            groupInfo.ScoreStatistics = new List<KeyValuePair<string, int>>
-            {
-                new KeyValuePair<string, int>("Отлично", GetScoreCount(5)),
-                new KeyValuePair<string, int>("Хорошо", GetScoreCount(4)),
-                new KeyValuePair<string, int>("Удовлетворительно", GetScoreCount(3)),
-                new KeyValuePair<string, int>("Не зачтено", examInfos.Length - GetScoreCount(5) - GetScoreCount(4) - GetScoreCount(3)),
-            };
-
-            return groupInfo;
-        }
-
-        public async Task<ExamInfoDto> Get(int id)
+        public async Task<ExamInfoBaseDto> Get(int id)
         {
             var examModel = await this.examInfoRepository.Get(id);
 
@@ -78,7 +66,7 @@
             return examModel.Adapt<ExamInfoDto>();
         }
 
-        public async Task<ExamInfoDto> Create(ExamInfoCreateDto examInfo)
+        public async Task<ExamInfoBaseDto> Create(ExamInfoCreateDto examInfo)
         {
             var forCreate = examInfo.Adapt<ExamInfo>();
 
@@ -89,7 +77,7 @@
             return newExamInfo.Adapt<ExamInfoDto>();
         }
 
-        public async Task<ExamInfoDto> Update(ExamInfoUpdateDto examInfo)
+        public async Task<ExamInfoBaseDto> Update(ExamInfoUpdateDto examInfo)
         {
             var forUpdate = examInfo.Adapt<ExamInfo>();
 
@@ -107,7 +95,7 @@
 
         private async Task AddRelatedEntities(ExamInfo examInfo)
         {
-            examInfo.AcademicDiscipline = await this.academicDisciplineRepository.Get(examInfo.AcademicDisciplineCode);
+            examInfo.Attestation = await this.attestationRepository.Get(examInfo.AttestationId);
             examInfo.Student = await this.studentRepository.Get(examInfo.StudentId);
         }
     }

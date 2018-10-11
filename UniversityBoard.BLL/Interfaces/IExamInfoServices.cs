@@ -8,13 +8,11 @@
     {
         Task<OneStudentExamInfosDto> GetByStudentId(int id);
 
-        Task<ExamGroupInfoDto> GetByGroupAndDisciplineCode(int groupId, string disciplineCode);
+        Task<ExamInfoBaseDto> Get(int id);
 
-        Task<ExamInfoDto> Get(int id);
+        Task<ExamInfoBaseDto> Create(ExamInfoCreateDto examInfo);
 
-        Task<ExamInfoDto> Create(ExamInfoCreateDto examInfo);
-
-        Task<ExamInfoDto> Update(ExamInfoUpdateDto examInfo);
+        Task<ExamInfoBaseDto> Update(ExamInfoUpdateDto examInfo);
 
         Task Delete(int id);
     }

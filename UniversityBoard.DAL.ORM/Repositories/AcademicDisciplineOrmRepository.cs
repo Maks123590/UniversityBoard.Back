@@ -1,5 +1,6 @@
 ﻿namespace UniversityBoard.DAL.ORM.Repositories
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
@@ -17,13 +18,15 @@
 
         public async Task<IEnumerable<AcademicDiscipline>> GetByGroup(int groupId)
         {
-            var examInfos = this.Context.Set<ExamInfo>();
+            throw new NotImplementedException();
 
-            return await this.DbSet.Join(
-                       examInfos,
-                       discipline => discipline.DisciplineCode,
-                       info => info.AcademicDisciplineCode,
-                (discipline, info) => new { Discipline = discipline, info.GroupId }).Where(t => t.GroupId == groupId).Select(t => t.Discipline).AsNoTracking().ToListAsync();
+            // var examInfos = this.Context.Set<ExamInfo>();
+
+            // return await this.DbSet.Join(
+            //           examInfos,
+            //           discipline => discipline.DisciplineCode,
+            //           info => info.AcademicDisciplineCode,
+            //    (discipline, info) => new { Discipline = discipline, info.GroupId }).Where(t => t.GroupId == groupId).Select(t => t.Discipline).AsNoTracking().ToListAsync();
         }
 
         public Task<IEnumerable<AcademicDiscipline>> GetByAcademicDepartamentCode(int code)

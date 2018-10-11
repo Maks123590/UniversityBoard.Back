@@ -7,8 +7,8 @@
 
     public interface IExamInfoRepository : IRepository<ExamInfo>, IRepository<int, ExamInfo>
     {
-        Task<IEnumerable<ExamInfo>> GetByGroupAndDisciplineCode(int groupId, string disciplineCode);
-
         Task<IEnumerable<ExamInfo>> GetByStudentId(int id);
+
+        Task<IEnumerable<ExamInfo>> GetByAttestationId(int id);
     }
 }
