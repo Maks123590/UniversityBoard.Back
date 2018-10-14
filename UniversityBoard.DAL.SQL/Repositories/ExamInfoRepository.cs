@@ -26,8 +26,8 @@
         public async Task<ExamInfo> Create(ExamInfo entity)
         {
             return await this.connection.QueryFirstAsync<ExamInfo>(
-                       @"INSERT INTO ExamInfos (AttestationId, Date, StudentId, Score, Level, SetOff) 
-					 VALUES(@AttestationId, @Date, @StudentId, @Score, @Level, @SetOff);
+                       @"INSERT INTO ExamInfos (AttestationId, Date, StudentId, Score, Level) 
+					 VALUES(@AttestationId, @Date, @StudentId, @Score, @Level);
                           SELECT * FROM ExamInfos where Id = LAST_INSERT_ID();",
                        entity);
         }
@@ -40,8 +40,7 @@
                            Date = @Date,
                            StudentId = @StudentId,
                            Score = @Score,
-                           Level = @Level,
-                           SetOff = @SetOff
+                           Level = @Level
                         WHERE Id = @id;
 
                         SELECT * FROM ExamInfos where Id = @id",

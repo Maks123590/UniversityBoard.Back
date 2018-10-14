@@ -19,8 +19,6 @@
 
         public int Level { get; set; }
 
-        public bool SetOff { get; set; }
-
         [ForeignKey(nameof(StudentId))]
         public Student Student { get; set; }
 

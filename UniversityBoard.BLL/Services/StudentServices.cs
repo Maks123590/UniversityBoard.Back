@@ -33,6 +33,11 @@
             return students.Adapt<IEnumerable<StudentDto>>();
         }
 
+        public async Task<IEnumerable<StudentDto>> GetByGroup(int id)
+        {
+            return (await this.studentRepository.GetByGroupId(id)).Adapt<IEnumerable<StudentDto>>();
+        }
+
         public async Task<StudentDto> Get(int id)
         {
             var student = await this.studentRepository.Get(id);

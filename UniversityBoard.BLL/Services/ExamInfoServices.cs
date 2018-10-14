@@ -70,6 +70,8 @@
         {
             var forCreate = examInfo.Adapt<ExamInfo>();
 
+            forCreate.Level = this.GetLevel(examInfo.Score);
+
             var newExamInfo = await this.examInfoRepository.Create(forCreate);
 
             await this.AddRelatedEntities(newExamInfo);
@@ -80,6 +82,8 @@
         public async Task<ExamInfoBaseDto> Update(ExamInfoUpdateDto examInfo)
         {
             var forUpdate = examInfo.Adapt<ExamInfo>();
+
+            forUpdate.Level = this.GetLevel(examInfo.Score);
 
             var updatedExamInfo = await this.examInfoRepository.Update(forUpdate);
 
@@ -97,6 +101,26 @@
         {
             examInfo.Attestation = await this.attestationRepository.Get(examInfo.AttestationId);
             examInfo.Student = await this.studentRepository.Get(examInfo.StudentId);
+        }
+
+        private int GetLevel(int score)
+        {
+            if (score == 0)
+            {
+                return 0;
+            }
+
+            if (score < 52)
+            {
+                return 2;
+            }
+
+            if (score < 72)
+            {
+                return 3;
+            }
+
+            return score < 86 ? 4 : 5;
         }
     }
 }

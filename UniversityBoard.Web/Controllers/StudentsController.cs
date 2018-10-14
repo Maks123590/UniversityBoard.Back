@@ -29,6 +29,16 @@
         }
 
         /// <summary>
+        /// Возвращает всех студентов определенной группы
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("byGroup/{groupId:int}")]
+        public async Task<IEnumerable<StudentDto>> GetByGroup(int groupId)
+        {
+            return await this.studentServices.GetByGroup(groupId);
+        }
+
+        /// <summary>
         /// Возвращает студента по идентификатору
         /// </summary>
         /// <param name="id">идентификатор</param>

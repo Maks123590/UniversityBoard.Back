@@ -10,6 +10,8 @@
     {
         Task<IEnumerable<StudentDto>> GetAllStudents();
 
+        Task<IEnumerable<StudentDto>> GetByGroup(int id);
+
         Task<StudentDto> Get(int id);
 
         Task<StudentDto> Create(StudentCreateDto student);

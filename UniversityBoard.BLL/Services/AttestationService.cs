@@ -8,6 +8,7 @@
 
     using UniversityBoard.BLL.Dtos.AttestationDto;
     using UniversityBoard.BLL.Interfaces;
+    using UniversityBoard.DAL.Common.Enums;
     using UniversityBoard.DAL.Common.Interfaces;
     using UniversityBoard.DAL.Common.Models;
 
@@ -110,33 +111,56 @@
 
             int GetLevelCount(int level) => examInfos.Count(e => e.Level == level);
 
-            attestationDto.ScoreStatistics = new List<StatisticsDto>
-                                            {
-                                                new StatisticsDto
-                                                    {
-                                                        Label = "Отлично",
-                                                        Count = GetLevelCount(5),
-                                                        Color = "#f1c40f"
-                                                    },
-                                                new StatisticsDto
-                                                    {
-                                                        Label = "Хорошо",
-                                                        Count = GetLevelCount(4),
-                                                        Color = "#f39c12"
-                                                    },
-                                                new StatisticsDto
-                                                    {
-                                                        Label = "Удовлетворительно",
-                                                        Count = GetLevelCount(3),
-                                                        Color = "#3498db"
-                                                    },
-                                                new StatisticsDto
-                                                    {
-                                                        Label = "Не сдано",
-                                                        Count = examInfos.Length - GetLevelCount(5) - GetLevelCount(4) - GetLevelCount(3),
-                                                        Color = "#bdc3c7"
-                                                    },
-                                            };
+            if (attestationDto.AppraisalType == AttestationType.Exam)
+            {
+                attestationDto.ScoreStatistics = new List<StatisticsDto>
+                                                     {
+                                                         new StatisticsDto
+                                                             {
+                                                                 Label = "Отлично",
+                                                                 Count = GetLevelCount(5),
+                                                                 Color = "#f1c40f"
+                                                             },
+                                                         new StatisticsDto
+                                                             {
+                                                                 Label = "Хорошо",
+                                                                 Count = GetLevelCount(4),
+                                                                 Color = "#f39c12"
+                                                             },
+                                                         new StatisticsDto
+                                                             {
+                                                                 Label = "Удовлетворительно",
+                                                                 Count = GetLevelCount(3),
+                                                                 Color = "#3498db"
+                                                             },
+                                                         new StatisticsDto
+                                                             {
+                                                                 Label = "Не зачтено",
+                                                                 Count = examInfos.Length - GetLevelCount(5) - GetLevelCount(4) - GetLevelCount(3),
+                                                                 Color = "#bdc3c7"
+                                                             },
+                                                     };
+            }
+            else
+            {
+                attestationDto.ScoreStatistics = new List<StatisticsDto>
+                                                     {
+                                                         new StatisticsDto
+                                                             {
+                                                                 Label = "Зачтено",
+                                                                 Count = GetLevelCount(3) + GetLevelCount(4) + GetLevelCount(5),
+                                                                 Color = "#f1c40f",
+                                                             },
+                                                         new StatisticsDto
+                                                             {
+                                                                 Label = "Не зачтено",
+                                                                 Count = examInfos.Length - GetLevelCount(3) - GetLevelCount(4) - GetLevelCount(5),
+                                                                 Color = "#bdc3c7",
+                                                             },
+                                                     };
+            }
+
+
 
             return attestationDto;
         }
