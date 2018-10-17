@@ -1,4 +1,4 @@
-﻿namespace Migrator
+﻿namespace UniversityBoard.Migrator
 {
     using System;
     using System.IO;
@@ -20,18 +20,27 @@
             var mongoDbconnectionString = configuration.GetConnectionString("MongoDbConnectionString");
 
 
-            Console.WriteLine("1. Migrate sql db dictionaries to orm db");
+            Console.WriteLine("0. Migrate sql db structure");
+            Console.WriteLine("1. Migrate sql db Data");
+            Console.WriteLine("2. Migrate sql db dictionaries to orm db");
 
             var key = Console.ReadLine();
 
             switch (key)
             {
-                case "1": CommandProvider.MigrateSqlToOrm(sqlConnectionString, entityFrameworkConnectionString);
+                case "0":
+                    CommandProvider.MigrateSqlDbStructure(sqlConnectionString);
+                    break;
+                case "1": CommandProvider.MigrateSqlDbData(sqlConnectionString);
+                    break;
+                case "2":
+                    CommandProvider.MigrateSqlToOrm(sqlConnectionString, entityFrameworkConnectionString);
                     break;
                 default: Console.WriteLine("Команда отсутствует");
                     break;
             }
 
+            Console.WriteLine("Complete!");
             Console.ReadLine();
         }
     }

@@ -1,17 +1,16 @@
-﻿namespace Migrator
+﻿namespace UniversityBoard.Migrator
 {
     using System;
     using System.Data;
     using System.Linq;
     using System.Threading.Tasks;
-    
+
     using Microsoft.EntityFrameworkCore;
 
     using MySql.Data.MySqlClient;
 
     using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
-    using UniversityBoard.DAL.Common.Interfaces;
     using UniversityBoard.DAL.ORM;
     using UniversityBoard.DAL.ORM.Repositories;
     using UniversityBoard.DAL.SQL.Repositories;
