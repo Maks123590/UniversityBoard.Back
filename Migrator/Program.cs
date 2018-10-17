@@ -1,27 +1,38 @@
 ﻿namespace Migrator
 {
     using System;
+    using System.IO;
+
+    using Microsoft.Extensions.Configuration;
 
     public class Program
     {
         public static void Main(string[] args)
         {
-            var sqlConnection = "server=localhost;user=root;database=batunin_402_user;SslMode=none";
-            var ormConnection = "server=localhost;user=root;database=batunin_402_user_orm;SslMode=none";
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+
+            IConfigurationRoot configuration = builder.Build();
+
+            var sqlConnectionString = configuration.GetConnectionString("DefaultSqlConnectionString");
+            var entityFrameworkConnectionString = configuration.GetConnectionString("EntityFrameworkConnectionString");
+            var mongoDbconnectionString = configuration.GetConnectionString("MongoDbConnectionString");
 
 
             Console.WriteLine("1. Migrate sql db dictionaries to orm db");
+
             var key = Console.ReadLine();
 
-            if (key == "1")
+            switch (key)
             {
-                using (var migrator = new SqlToOrmMigrator(sqlConnection, ormConnection))
-                {
-                    migrator.MigrateSqlDbToOrmDb();
-
-                    Console.ReadLine();
-                }
+                case "1": CommandProvider.MigrateSqlToOrm(sqlConnectionString, entityFrameworkConnectionString);
+                    break;
+                default: Console.WriteLine("Команда отсутствует");
+                    break;
             }
+
+            Console.ReadLine();
         }
     }
 }

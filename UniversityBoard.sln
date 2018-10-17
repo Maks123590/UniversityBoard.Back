@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniversityBoard.DAL.SQL", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniversityBoard.DAL.ORM", "UniversityBoard.DAL.ORM\UniversityBoard.DAL.ORM.csproj", "{0694DFF2-7215-4A1B-801A-8EB18D3AD3D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migrator", "Migrator\Migrator.csproj", "{378D29B2-CC66-4DD3-99E3-5930AE6E8CAD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniversityBoard.Migrator", "Migrator\UniversityBoard.Migrator.csproj", "{378D29B2-CC66-4DD3-99E3-5930AE6E8CAD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
