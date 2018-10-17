@@ -53,6 +53,8 @@
             services.AddTransient<IEducationalDirectionRepository, EducationalDiresctionOrmRepository>();
             services.AddTransient<IExamInfoRepository, ExamInfoOrmRepository>();
             services.AddTransient<IAcademicDisciplineRepository, AcademicDisciplineOrmRepository>();
+            services.AddTransient<IAttestationRepository, AttestationOrmRepository>();
+            services.AddTransient<IAcademicDepartamentRepository, AcademicDepartamentsOrmRepository>();
         }
 
         public static void ConfigureNoSqlRepositories(this IServiceCollection services, string connectionString)

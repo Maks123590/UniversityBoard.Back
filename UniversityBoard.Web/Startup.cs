@@ -1,5 +1,6 @@
 ﻿namespace UniversityBoard.Web
 {
+    using System;
     using System.IO;
 
     using Microsoft.AspNetCore.Builder;
@@ -31,12 +32,18 @@
             var mongoDbconnectionString = this.Configuration.GetConnectionString("MongoDbConnectionString");
 
 
-            services.ConfigureSqlRepositories(connectionString);                 // Use only one!
-            // services.ConfigureOrmRepositories(entityFrameworkConnectionString);
-            // services.ConfigureNoSqlRepositories(mongoDbconnectionString);
+            switch (this.Configuration.GetSection("DbUse").Value)
+            {
+                case "SQL": services.ConfigureSqlRepositories(connectionString);
+                    break;
+                case "Orm": services.ConfigureOrmRepositories(entityFrameworkConnectionString);
+                    break;
+                case "NoSQL": services.ConfigureNoSqlRepositories(mongoDbconnectionString);
+                    break;
+                default: throw new Exception("Incorrect repositories configuration");
+            }
 
             services.ConfigureBllServices();
-
 
             services.AddSwaggerGen(c =>
             {

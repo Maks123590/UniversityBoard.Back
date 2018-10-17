@@ -20,9 +20,9 @@
             return await this.DbSet.Where(e => e.StudentId == id).AsNoTracking().ToListAsync();
         }
 
-        public Task<IEnumerable<ExamInfo>> GetByAttestationId(int id)
+        public async Task<IEnumerable<ExamInfo>> GetByAttestationId(int id)
         {
-            throw new System.NotImplementedException();
+            return await this.DbSet.Where(e => e.AttestationId == id).AsNoTracking().ToListAsync();
         }
     }
 }

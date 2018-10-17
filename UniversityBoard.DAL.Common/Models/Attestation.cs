@@ -2,12 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
     using UniversityBoard.DAL.Common.Enums;
 
     public class Attestation
     {
+        [Key]
         public int Id { get; set; }
 
         public DateTime Date { get; set; }

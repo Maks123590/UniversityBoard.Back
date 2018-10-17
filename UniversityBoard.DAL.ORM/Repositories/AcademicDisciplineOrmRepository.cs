@@ -16,9 +16,9 @@
         {
         }
 
-        public Task<IEnumerable<AcademicDiscipline>> GetByAcademicDepartamentCode(int code)
+        public async Task<IEnumerable<AcademicDiscipline>> GetByAcademicDepartamentCode(int code)
         {
-            throw new System.NotImplementedException();
+            return await this.DbSet.Where(d => d.AcademicDepartamentCode == code).AsNoTracking().ToListAsync();
         }
     }
 }
