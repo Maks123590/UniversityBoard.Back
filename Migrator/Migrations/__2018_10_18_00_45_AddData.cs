@@ -293,7 +293,20 @@ INSERT INTO `Students` (`Id`, `LastName`, `StudentCardIssueDate`, `FirstName`, `
 
         protected override void Down()
         {
-            throw new System.NotImplementedException();
+            this.Execute(@"
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+            DROP TABLE IF EXISTS `AcademicDepartaments`;
+            DROP TABLE IF EXISTS `AcademicDisciplines`;
+            DROP TABLE IF EXISTS `Attestations`;
+            DROP TABLE IF EXISTS `EducationalDirections`;
+            DROP TABLE IF EXISTS `ExamInfos`;
+            DROP TABLE IF EXISTS `Groups`;
+            DROP TABLE IF EXISTS `Students`;
+            ");
         }
     }
 }

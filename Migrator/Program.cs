@@ -24,24 +24,34 @@
             Console.WriteLine("1. Migrate sql db Data");
             Console.WriteLine("2. Migrate sql db dictionaries to orm db");
 
-            var key = Console.ReadLine();
-
-            switch (key)
+            while (true)
             {
-                case "0":
-                    CommandProvider.MigrateSqlDbStructure(sqlConnectionString);
-                    break;
-                case "1": CommandProvider.MigrateSqlDbData(sqlConnectionString);
-                    break;
-                case "2":
-                    CommandProvider.MigrateSqlToOrm(sqlConnectionString, entityFrameworkConnectionString);
-                    break;
-                default: Console.WriteLine("Команда отсутствует");
-                    break;
-            }
+                var key = Console.ReadLine();
 
-            Console.WriteLine("Complete!");
-            Console.ReadLine();
+                var onBreak = false;
+
+                switch (key)
+                {
+                    case "0":
+                        CommandProvider.MigrateSqlDbStructure(sqlConnectionString);
+                        break;
+                    case "1":
+                        CommandProvider.MigrateSqlDbData(sqlConnectionString);
+                        break;
+                    case "2":
+                        CommandProvider.MigrateSqlToOrm(sqlConnectionString, entityFrameworkConnectionString);
+                        break;
+                    default: onBreak = true;
+                        break;
+                }
+
+                if (onBreak)
+                {
+                    break;
+                }
+
+                Console.WriteLine("Complete!");
+            }
         }
     }
 }
