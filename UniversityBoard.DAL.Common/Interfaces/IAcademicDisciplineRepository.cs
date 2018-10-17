@@ -7,8 +7,6 @@
 
     public interface IAcademicDisciplineRepository : IRepository<AcademicDiscipline>, IRepository<string, AcademicDiscipline>
     {
-        Task<IEnumerable<AcademicDiscipline>> GetByGroup(int groupId);
-
         Task<IEnumerable<AcademicDiscipline>> GetByAcademicDepartamentCode(int code);
     }
 }

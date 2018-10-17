@@ -74,17 +74,6 @@
         }
 
         /// <summary>
-        /// Возвращает дисциплины по идентификатору группы
-        /// </summary>
-        /// <param name="groupId">идентификатор группы</param>
-        /// <returns></returns>
-        [HttpGet("byGroup/{groupId:int}")]
-        public async Task<IEnumerable<AcademicDisciplineDto>> GetByGroup(int groupId)
-        {
-            return await this.academicDisciplineService.GetByGroup(groupId);
-        }
-
-        /// <summary>
         /// Возвращает дисциплины по коду кафедры
         /// </summary>
         /// <param name="code">код кафедры</param>

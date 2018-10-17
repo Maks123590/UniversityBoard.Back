@@ -16,19 +16,6 @@
         {
         }
 
-        public async Task<IEnumerable<AcademicDiscipline>> GetByGroup(int groupId)
-        {
-            throw new NotImplementedException();
-
-            // var examInfos = this.Context.Set<ExamInfo>();
-
-            // return await this.DbSet.Join(
-            //           examInfos,
-            //           discipline => discipline.DisciplineCode,
-            //           info => info.AcademicDisciplineCode,
-            //    (discipline, info) => new { Discipline = discipline, info.GroupId }).Where(t => t.GroupId == groupId).Select(t => t.Discipline).AsNoTracking().ToListAsync();
-        }
-
         public Task<IEnumerable<AcademicDiscipline>> GetByAcademicDepartamentCode(int code)
         {
             throw new System.NotImplementedException();

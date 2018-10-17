@@ -55,16 +55,6 @@
             await this.dbConnection.ExecuteAsync(@"DELETE FROM AcademicDisciplines WHERE DisciplineCode = @DisciplineCode", new { DisciplineCode = id });
         }
 
-        public async Task<IEnumerable<AcademicDiscipline>> GetByGroup(int groupId)
-        {
-            return await this.dbConnection.QueryAsync<AcademicDiscipline>(
-                    @"Select distinct d.DisciplineCode, d.Name, d.AcademicDepartamentCode 
-                        from AcademicDisciplines d 
-                      inner join ExamInfos e on d.DisciplineCode = e.AcademicDisciplineCode 
-                        where e.GroupId = @groupId",
-                    new { groupId });
-        }
-
         public async Task<IEnumerable<AcademicDiscipline>> GetByAcademicDepartamentCode(int code)
         {
             return await this.dbConnection.QueryAsync<AcademicDiscipline>(

@@ -18,8 +18,6 @@
 
         Task Delete(string id);
 
-        Task<IEnumerable<AcademicDisciplineDto>> GetByGroup(int groupId);
-
         Task<IEnumerable<AcademicDisciplineDto>> GetByAcademicDepartamentCode(int code);
     }
 }
