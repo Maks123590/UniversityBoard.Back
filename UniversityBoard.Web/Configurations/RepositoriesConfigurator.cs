@@ -6,6 +6,9 @@
 
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
+
+    using MongoDB.Driver;
+
     using MySql.Data.MySqlClient;
     using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
@@ -59,7 +62,8 @@
 
         public static void ConfigureNoSqlRepositories(this IServiceCollection services, string connectionString)
         {
-            throw new NotImplementedException();
+            MongoClient client = new MongoClient(connectionString);
+            IMongoDatabase database = client.GetDatabase("test");
         }
     }
 }
