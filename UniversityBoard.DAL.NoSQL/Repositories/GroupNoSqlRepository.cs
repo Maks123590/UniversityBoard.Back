@@ -9,8 +9,8 @@
 
     public class GroupNoSqlRepository : NoSqlRepositoryBase<int, Group>, IGroupRepository
     {
-        public GroupNoSqlRepository(IMongoCollection<Group> collection, string idName)
-            : base(collection, idName)
+        public GroupNoSqlRepository(IMongoCollection<Group> collection)
+            : base(collection, nameof(Group.Id))
         {
         }
 

@@ -7,6 +7,14 @@
 
     public static class CommandProvider
     {
+        public static void MigrateSqlToNoSql(string sqlConnectionString, string mongoDbConnectionString)
+        {
+            using (var migrator = new SqlToNoSqlMigrator(sqlConnectionString, mongoDbConnectionString))
+            {
+                migrator.MigrateSqlDbToNoSqlDb();
+            }
+        }
+
         public static void MigrateSqlToOrm(string sqlConnectionString, string entityFrameworkConnectionString)
         {
             using (var migrator = new SqlToOrmMigrator(sqlConnectionString, entityFrameworkConnectionString))

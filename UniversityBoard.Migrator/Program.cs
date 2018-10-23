@@ -22,7 +22,8 @@
 
             Console.WriteLine("0. Migrate sql db structure");
             Console.WriteLine("1. Migrate sql db Data");
-            Console.WriteLine("2. Migrate sql db dictionaries to orm db");
+            Console.WriteLine("2. Migrate sql db dictionaries to ORM db");
+            Console.WriteLine("3. Migrate sql db dictionaries to NOSQL db");
 
             while (true)
             {
@@ -40,6 +41,9 @@
                         break;
                     case "2":
                         CommandProvider.MigrateSqlToOrm(sqlConnectionString, entityFrameworkConnectionString);
+                        break;
+                    case "3":
+                        CommandProvider.MigrateSqlToNoSql(sqlConnectionString, mongoDbconnectionString);
                         break;
                     default: onBreak = true;
                         break;

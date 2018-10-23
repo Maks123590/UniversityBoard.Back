@@ -22,7 +22,7 @@
 
         public async Task<IEnumerable<AcademicDiscipline>> GetByAcademicDepartamentCode(int code)
         {
-            var filter = Builders<AcademicDiscipline>.Filter.Eq(this.idName, code);
+            var filter = Builders<AcademicDiscipline>.Filter.Eq(nameof(AcademicDiscipline.AcademicDepartamentCode), code);
 
             return await this.collection.Find(filter).ToListAsync();
         }

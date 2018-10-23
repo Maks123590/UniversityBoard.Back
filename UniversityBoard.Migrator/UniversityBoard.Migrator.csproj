@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\UniversityBoard.DAL.Common\UniversityBoard.DAL.Common.csproj" />
+    <ProjectReference Include="..\UniversityBoard.DAL.NoSQL\UniversityBoard.DAL.NoSQL.csproj" />
     <ProjectReference Include="..\UniversityBoard.DAL.ORM\UniversityBoard.DAL.ORM.csproj" />
     <ProjectReference Include="..\UniversityBoard.DAL.SQL\UniversityBoard.DAL.SQL.csproj" />
   </ItemGroup>

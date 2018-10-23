@@ -68,11 +68,23 @@
 
             IMongoDatabase database = client.GetDatabase("batunin_402_users_onsql");
 
-            services.AddTransient<IMongoCollection<AcademicDepartament>>(provider => database.GetCollection<AcademicDepartament>("academicDepartaments"));
+            services.AddTransient<IMongoCollection<Student>>(provider => database.GetCollection<Student>("students"));
+            services.AddTransient<IMongoCollection<Group>>(provider => database.GetCollection<Group>("groups"));
+            services.AddTransient<IMongoCollection<EducationalDirection>>(provider => database.GetCollection<EducationalDirection>("educationalDirections"));
+            services.AddTransient<IMongoCollection<ExamInfo>>(provider => database.GetCollection<ExamInfo>("examInfos"));
             services.AddTransient<IMongoCollection<AcademicDiscipline>>(provider => database.GetCollection<AcademicDiscipline>("academicDisciplines"));
+            services.AddTransient<IMongoCollection<Attestation>>(provider => database.GetCollection<Attestation>("attestations"));
+            services.AddTransient<IMongoCollection<AcademicDepartament>>(provider => database.GetCollection<AcademicDepartament>("academicDepartaments"));
+            
 
-            services.AddTransient<IAcademicDepartamentRepository, AcademicDepartamentNoSqlRepository>();
+            services.AddTransient<IStudentRepository, StudentNoSqlRepository>();
+            services.AddTransient<IGroupRepository, GroupNoSqlRepository>();
+            services.AddTransient<IEducationalDirectionRepository, EducationalDirectionNoSqlRepository>();
+            services.AddTransient<IExamInfoRepository, ExamInfoNoSqlRepository>();
             services.AddTransient<IAcademicDisciplineRepository, AcademicDisciplineNoSqlRepository>();
+            services.AddTransient<IAttestationRepository, AttestationNoSqlRepository>();
+            services.AddTransient<IAcademicDepartamentRepository, AcademicDepartamentNoSqlRepository>();
+
         }
     }
 }
