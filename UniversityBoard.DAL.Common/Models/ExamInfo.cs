@@ -4,9 +4,12 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
+    using MongoDB.Bson.Serialization.Attributes;
+
     public class ExamInfo
     {
         [Key]
+        [BsonId]
         public int Id { get; set; }
 
         public int AttestationId { get; set; }

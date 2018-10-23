@@ -7,8 +7,7 @@
     using UniversityBoard.DAL.Common.Interfaces;
     using UniversityBoard.DAL.Common.Models;
 
-    public class AcademicDepartamentNoSqlRepository : NoSqlRepositoryBase<int, AcademicDepartament>,
-                                                      IRepository<AcademicDepartament>
+    public class AcademicDepartamentNoSqlRepository : NoSqlRepositoryBase<int, AcademicDepartament>, IAcademicDepartamentRepository
     {
         public AcademicDepartamentNoSqlRepository(IMongoCollection<AcademicDepartament> collection)
             : base(collection, nameof(AcademicDepartament.Code))

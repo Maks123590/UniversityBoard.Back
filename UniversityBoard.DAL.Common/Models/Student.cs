@@ -4,11 +4,14 @@
 
     using System.ComponentModel.DataAnnotations;
 
+    using MongoDB.Bson.Serialization.Attributes;
+
     using UniversityBoard.DAL.Common.Enums;
 
     public class Student
     {
         [Key]
+        [BsonId]
         public int Id { get; set; }
 
         public string FirstName { get; set; }

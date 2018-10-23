@@ -5,11 +5,14 @@
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
+    using MongoDB.Bson.Serialization.Attributes;
+
     using UniversityBoard.DAL.Common.Enums;
 
     public class Attestation
     {
         [Key]
+        [BsonId]
         public int Id { get; set; }
 
         public DateTime Date { get; set; }

@@ -13,6 +13,8 @@
     using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
     using UniversityBoard.DAL.Common.Interfaces;
+    using UniversityBoard.DAL.Common.Models;
+    using UniversityBoard.DAL.NoSQL.Repositories;
     using UniversityBoard.DAL.ORM;
     using UniversityBoard.DAL.ORM.Repositories;
     using UniversityBoard.DAL.SQL.Repositories;
@@ -63,7 +65,14 @@
         public static void ConfigureNoSqlRepositories(this IServiceCollection services, string connectionString)
         {
             MongoClient client = new MongoClient(connectionString);
-            IMongoDatabase database = client.GetDatabase("test");
+
+            IMongoDatabase database = client.GetDatabase("batunin_402_users_onsql");
+
+            services.AddTransient<IMongoCollection<AcademicDepartament>>(provider => database.GetCollection<AcademicDepartament>("academicDepartaments"));
+            services.AddTransient<IMongoCollection<AcademicDiscipline>>(provider => database.GetCollection<AcademicDiscipline>("academicDisciplines"));
+
+            services.AddTransient<IAcademicDepartamentRepository, AcademicDepartamentNoSqlRepository>();
+            services.AddTransient<IAcademicDisciplineRepository, AcademicDisciplineNoSqlRepository>();
         }
     }
 }

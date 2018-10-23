@@ -10,8 +10,8 @@
 
     public abstract class NoSqlRepositoryBase<TKey, TEntity> : IRepository<TKey, TEntity> where TEntity : class
     {
-        private readonly IMongoCollection<TEntity> collection;
-        private readonly string idName;
+        protected readonly IMongoCollection<TEntity> collection;
+        protected readonly string idName;
 
         protected NoSqlRepositoryBase(IMongoCollection<TEntity> collection, string idName)
         {
