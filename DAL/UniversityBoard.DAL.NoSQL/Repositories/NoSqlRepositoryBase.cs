@@ -26,6 +26,12 @@
 
         public async Task<TEntity> Create(TEntity entity)
         {
+            var query = Query.And(Query.EQ("_id", keyName));
+            var sortBy = SortBy.Null;
+            var update = Update.Inc("KeyValue", adjustmentAmount);
+            var result = collection.FindAndModify(query, sortBy, update, true);
+
+
             await this.collection.InsertOneAsync(entity);
 
             return entity;
